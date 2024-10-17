@@ -1,4 +1,5 @@
 import { Text, View } from 'react-native';
+import TextInputField from '../../components/Inputs/TextInputField';
 
 export default function Login() {
   return (
@@ -9,6 +10,7 @@ export default function Login() {
         earum assumenda praesentium explicabo reiciendis, recusandae possimus
         laudantium facilis?
       </Text>
+      <TextInputField />
     </View>
   );
 }
