@@ -3,21 +3,25 @@ import { Button, Text, TextInput } from 'react-native-paper';
 
 import styles from './styles';
 
-function handlePress() {
-  console.log('pressed');
-}
+export default function Login({ navigation }) {
+  function handleSubmit() {
+    console.log('pressed');
+  }
 
-export default function Login() {
+  function onCreateAccountPress() {
+    navigation.navigate('Register');
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Please Login</Text>
       <TextInput label="Email" />
       <TextInput label="Password" />
-      <Button mode="contained" onPress={handlePress}>
-        Login
+      <Button mode="contained" onPress={handleSubmit}>
+        Submit
       </Button>
       <Text style={styles.label}>Don&apos;t Have Account?</Text>
-      <Button onPress={handlePress}>Create Account</Button>
+      <Button onPress={onCreateAccountPress}>Create Account</Button>
     </View>
   );
 }
