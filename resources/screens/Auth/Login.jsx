@@ -15,7 +15,7 @@ export default function Login({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Please Login</Text>
-      <TextInput label="Email" />
+      <TextInput label="Email" keyboardType="email-address" />
       <TextInput label="Password" />
       <Button mode="contained" onPress={handleSubmit}>
         Submit
