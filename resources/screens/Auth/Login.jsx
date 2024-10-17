@@ -1,16 +1,10 @@
-import { useState } from 'react';
 import { View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 
 import styles from './styles';
+import PasswordInput from '../../components/Inputs/Password';
 
 export default function Login({ navigation }) {
-  const [isSecured, setIsSecured] = useState(true);
-
-  function handleShowPassword() {
-    setIsSecured(isShow => !isShow);
-  }
-
   function handleSubmit() {
     console.log('pressed');
   }
@@ -23,13 +17,9 @@ export default function Login({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.heading}>Sign into your account</Text>
       <TextInput label="Email" keyboardType="email-address" />
-      <TextInput
-        label="Password"
-        secureTextEntry={isSecured}
-        right={<TextInput.Icon icon="eye" onPress={handleShowPassword} />}
-      />
+      <PasswordInput />
       <Button mode="contained" onPress={handleSubmit}>
-        Submit
+        Sign In
       </Button>
       <Text style={styles.label}>Don&apos;t Have Account?</Text>
       <Button onPress={onCreateAccountPress}>Create Account</Button>
