@@ -1,16 +1,11 @@
 import { Text, View } from 'react-native';
-import TextInputField from '../../components/Inputs/TextInputField';
+import { TextInput } from 'react-native-paper';
 
 export default function Login() {
   return (
     <View>
-      <Text>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum id sed
-        voluptatem dicta amet consectetur et ut, nobis veritatis rerum totam
-        earum assumenda praesentium explicabo reiciendis, recusandae possimus
-        laudantium facilis?
-      </Text>
-      <TextInputField />
+      <Text>Please Login</Text>
+      <TextInput label="Email" />
     </View>
   );
 }
