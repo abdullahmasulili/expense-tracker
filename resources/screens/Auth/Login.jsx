@@ -6,7 +6,7 @@ import PasswordInput from '../../components/Inputs/Password';
 
 export default function Login({ navigation }) {
   function handleSubmit() {
-    console.log('pressed');
+    navigation.navigate('Expenses');
   }
 
   function onCreateAccountPress() {
