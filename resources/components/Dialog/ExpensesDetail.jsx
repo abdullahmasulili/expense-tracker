@@ -1,6 +1,7 @@
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import { ScrollView } from 'react-native';
 import { Button, Dialog, Portal, Text } from 'react-native-paper';
+import styles from './styles';
 
 const ExpensesDetail = forwardRef(function ExpensesDetail(props, ref) {
   const [isVisible, setIsVisible] = useState(false);
@@ -28,7 +29,7 @@ const ExpensesDetail = forwardRef(function ExpensesDetail(props, ref) {
     <Portal>
       <Dialog visible={isVisible} onDismiss={handleCloseDialog}>
         <Dialog.Title>Expenses Detail</Dialog.Title>
-        <Dialog.ScrollArea style={{ maxHeight: 500 }}>
+        <Dialog.ScrollArea style={styles.content}>
           <ScrollView>
             <Text>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora
