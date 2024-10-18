@@ -5,9 +5,9 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   heading: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    alignItems: 'start',
+    gap: 5,
     paddingVertical: 8,
   },
   list: {

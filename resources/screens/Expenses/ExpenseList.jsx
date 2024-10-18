@@ -1,6 +1,6 @@
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Button, List, Text } from 'react-native-paper';
+import { Appbar, List, MD3Colors, Text } from 'react-native-paper';
 
 import ExpenseItem from '../../components/List/ExpenseItem';
 import DUMMY_DATA from '../../data';
@@ -21,31 +21,48 @@ export default function ExpenseList() {
     setDate(selectedDate);
     setIsPickDate(false);
   }
-  return (
-    <ScrollView style={styles.container}>
+
+  function headerContent() {
+    return (
       <View style={styles.heading}>
-        <Text variant="titleLarge">Your Expenses At</Text>
-        <Button onPress={() => setIsPickDate(true)}>{formattedDate}</Button>
+        <Text variant="titleMedium">Your Expenses At</Text>
+        <Text variant="labelMedium">{formattedDate}</Text>
       </View>
-      <List.Section style={styles.list}>
-        {DUMMY_DATA.map((data, index) => (
-          <ExpenseItem
-            key={index}
-            title={data.month}
-            summary={data.expenseSummary}
-          />
-        ))}
-      </List.Section>
-      <DatePicker
-        modal
-        mode="date"
-        theme="light"
-        maximumDate={new Date()}
-        open={isPickDate}
-        date={date}
-        onCancel={() => setIsPickDate(false)}
-        onConfirm={handleOnDateConfirm}
-      />
-    </ScrollView>
+    );
+  }
+
+  return (
+    <>
+      <Appbar.Header>
+        <Appbar.Content title={headerContent()} />
+        <Appbar.Action
+          icon="calendar"
+          iconColor={MD3Colors.primary40}
+          onPress={() => setIsPickDate(true)}
+        />
+        <Appbar.Action icon="plus" iconColor={MD3Colors.primary40} />
+      </Appbar.Header>
+      <ScrollView style={styles.container}>
+        <List.Section style={styles.list}>
+          {DUMMY_DATA.map((data, index) => (
+            <ExpenseItem
+              key={index}
+              title={data.month}
+              summary={data.expenseSummary}
+            />
+          ))}
+        </List.Section>
+        <DatePicker
+          modal
+          mode="date"
+          theme="light"
+          maximumDate={new Date()}
+          open={isPickDate}
+          date={date}
+          onCancel={() => setIsPickDate(false)}
+          onConfirm={handleOnDateConfirm}
+        />
+      </ScrollView>
+    </>
   );
 }
