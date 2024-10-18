@@ -1,15 +1,27 @@
 import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { ScrollView } from 'react-native-gesture-handler';
+import { Button, List, Text } from 'react-native-paper';
+
+import ExpenseItem from '../../components/List/ExpenseItem';
+import DUMMY_DATA from '../../data';
+import styles from './styles';
 
 export default function ExpenseList() {
   return (
-    <View>
-      <Text>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae
-        nemo nisi voluptates voluptatem voluptas debitis nobis alias aut hic
-        eum, doloremque odio aspernatur excepturi nulla delectus rem. Sapiente,
-        quos iste?
-      </Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <View style={styles.heading}>
+        <Text variant="titleLarge">Your Expenses At</Text>
+        <Button>Select Date</Button>
+      </View>
+      <List.Section style={styles.list}>
+        {DUMMY_DATA.map((data, index) => (
+          <ExpenseItem
+            key={index}
+            title={data.month}
+            summary={data.expenseSummary}
+          />
+        ))}
+      </List.Section>
+    </ScrollView>
   );
 }
