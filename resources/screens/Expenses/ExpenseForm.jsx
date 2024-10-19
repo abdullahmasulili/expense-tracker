@@ -24,7 +24,7 @@ const EXPENSE_CATEGORIES = [
 export default function ExpenseForm({ navigation, route }) {
   const params = route.params;
   const data = params.expenseData || null;
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState('');
   const [date, setDate] = useState(new Date());
   const [isPickDate, setIsPickDate] = useState(false);
   const [description, setDescription] = useState('');
@@ -71,6 +71,7 @@ export default function ExpenseForm({ navigation, route }) {
           mode="outlined"
           label="Amount"
           dense
+          value={expenseAmount}
           defaultValue={expenseAmount}
           keyboardType="number-pad"
           inputMode="numeric"
@@ -81,6 +82,7 @@ export default function ExpenseForm({ navigation, route }) {
           label="Date Time"
           dense
           value={formattedDate}
+          defaultValue={formattedDate}
           keyboardType="number-pad"
           inputMode="numeric"
           readOnly
