@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: MD3Colors.primary20,
+    color: '#000',
   },
 });
 

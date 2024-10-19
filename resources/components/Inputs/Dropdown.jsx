@@ -1,13 +1,14 @@
 import { Picker } from '@react-native-picker/picker';
 import { View } from 'react-native';
 import { Text } from 'react-native-paper';
+import styles from './styles';
 
 export default function Dropdown({ label, items, onChange, value }) {
   return (
     <View>
       <Text variant="labelMedium">{label}</Text>
       <Picker
-        style={{ color: '#000' }}
+        style={styles.input}
         dropdownIconColor="#000"
         mode="dropdown"
         selectedValue={value}
