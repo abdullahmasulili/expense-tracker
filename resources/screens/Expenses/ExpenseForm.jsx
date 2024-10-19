@@ -46,7 +46,7 @@ export default function ExpenseForm({ navigation, route }) {
   });
 
   function handleBack() {
-    navigation.navigate('ExpenseList');
+    navigation.navigate('UserHome');
   }
 
   function handleOnDateConfirm(selectedDate) {

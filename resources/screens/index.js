@@ -1,7 +1,7 @@
+import UserLayout from '../layouts/User';
 import Login from './Auth/Login';
 import Register from './Auth/Register';
 import ExpenseForm from './Expenses/ExpenseForm';
-import ExpensesHome from './Expenses/Home';
 
 const screens = [
   {
@@ -13,8 +13,8 @@ const screens = [
     component: Register,
   },
   {
-    name: 'Expenses',
-    component: ExpensesHome,
+    name: 'UserHome',
+    component: UserLayout,
   },
   {
     name: 'ExpenseForm',
