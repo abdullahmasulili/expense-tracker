@@ -6,7 +6,12 @@ export default function Dropdown({ label, items, onChange, value }) {
   return (
     <View>
       <Text variant="labelMedium">{label}</Text>
-      <Picker mode="dropdown" selectedValue={value} onValueChange={onChange}>
+      <Picker
+        style={{ color: '#000' }}
+        dropdownIconColor="#000"
+        mode="dropdown"
+        selectedValue={value}
+        onValueChange={onChange}>
         {items?.map(item => (
           <Picker.Item key={item.name} label={item.label} value={item.value} />
         ))}
