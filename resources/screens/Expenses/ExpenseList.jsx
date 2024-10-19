@@ -8,7 +8,7 @@ import styles from './styles';
 import DatePicker from 'react-native-date-picker';
 import { useState } from 'react';
 
-export default function ExpenseList() {
+export default function ExpenseList({ navigation }) {
   const [date, setDate] = useState(new Date());
   const [isPickDate, setIsPickDate] = useState(false);
   const formattedDate = date.toLocaleDateString('en-US', {
@@ -31,6 +31,10 @@ export default function ExpenseList() {
     );
   }
 
+  function handleNewItem() {
+    navigation.navigate('ExpenseForm');
+  }
+
   return (
     <>
       <Appbar.Header>
@@ -40,7 +44,11 @@ export default function ExpenseList() {
           iconColor={MD3Colors.primary40}
           onPress={() => setIsPickDate(true)}
         />
-        <Appbar.Action icon="plus" iconColor={MD3Colors.primary40} />
+        <Appbar.Action
+          icon="plus"
+          iconColor={MD3Colors.primary40}
+          onPress={handleNewItem}
+        />
       </Appbar.Header>
       <ScrollView style={styles.container}>
         <List.Section style={styles.list}>

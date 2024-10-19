@@ -1,5 +1,6 @@
 import Login from './Auth/Login';
 import Register from './Auth/Register';
+import ExpenseForm from './Expenses/ExpenseForm';
 import ExpensesHome from './Expenses/Home';
 
 const screens = [
@@ -14,6 +15,10 @@ const screens = [
   {
     name: 'Expenses',
     component: ExpensesHome,
+  },
+  {
+    name: 'ExpenseForm',
+    component: ExpenseForm,
   },
 ];
 
