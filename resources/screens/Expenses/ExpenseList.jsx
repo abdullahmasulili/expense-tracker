@@ -32,7 +32,9 @@ export default function ExpenseList({ navigation }) {
   }
 
   function handleNewItem() {
-    navigation.navigate('ExpenseForm');
+    navigation.navigate('ExpenseForm', {
+      actionType: 'New Expense',
+    });
   }
 
   return (
