@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { View } from 'react-native';
-import { Appbar, Button, TextInput } from 'react-native-paper';
+import { Appbar, Button, Text, TextInput } from 'react-native-paper';
 import DatePicker from 'react-native-date-picker';
+import { useSelector } from 'react-redux';
 
 import styles from './styles';
 import Dropdown from '../../components/Inputs/Dropdown';
-import { useSelector } from 'react-redux';
 
 export default function ExpenseForm({ navigation, route }) {
   const params = route.params;
@@ -41,55 +41,71 @@ export default function ExpenseForm({ navigation, route }) {
     setIsPickDate(false);
   }
 
+  function handleFallbackButtonPress() {
+    navigation.navigate('ManageExpenseCategory');
+  }
+
   return (
     <>
       <Appbar.Header>
         <Appbar.BackAction onPress={handleBack} />
         <Appbar.Content title={params.actionType} />
       </Appbar.Header>
-      <View style={styles.container}>
-        <Dropdown
-          label="Category"
-          value={selectedCategory}
-          onChange={itemValue => setSelectedCategory(itemValue)}
-          items={expenseCategories}
-        />
-        <TextInput
-          mode="outlined"
-          label="Amount"
-          dense
-          value={expenseAmount}
-          defaultValue={expenseAmount}
-          keyboardType="number-pad"
-          inputMode="numeric"
-          right={<TextInput.Icon icon="currency-usd" />}
-        />
-        <TextInput
-          mode="outlined"
-          label="Date Time"
-          dense
-          value={formattedDate}
-          defaultValue={formattedDate}
-          keyboardType="number-pad"
-          inputMode="numeric"
-          readOnly
-          right={
-            <TextInput.Icon
-              icon="calendar"
-              onPress={() => setIsPickDate(true)}
-            />
-          }
-        />
-        <TextInput
-          mode="outlined"
-          label="Description"
-          multiline
-          numberOfLines={8}
-          value={description}
-          defaultValue={description}
-        />
-        <Button mode="contained">Save</Button>
-      </View>
+      {expenseCategories.length < 1 && (
+        <View style={styles.emptyCategoryContainer}>
+          <Text style={styles.emptyCategoryMessage} variant="titleMedium">
+            Please add expense category first
+          </Text>
+          <Button onPress={handleFallbackButtonPress}>
+            Manage Expense Category
+          </Button>
+        </View>
+      )}
+      {expenseCategories.length > 0 && (
+        <View style={styles.container}>
+          <Dropdown
+            label="Category"
+            value={selectedCategory}
+            onChange={itemValue => setSelectedCategory(itemValue)}
+            items={expenseCategories}
+          />
+          <TextInput
+            mode="outlined"
+            label="Amount"
+            dense
+            value={expenseAmount}
+            defaultValue={expenseAmount}
+            keyboardType="number-pad"
+            inputMode="numeric"
+            right={<TextInput.Icon icon="currency-usd" />}
+          />
+          <TextInput
+            mode="outlined"
+            label="Date Time"
+            dense
+            value={formattedDate}
+            defaultValue={formattedDate}
+            keyboardType="number-pad"
+            inputMode="numeric"
+            readOnly
+            right={
+              <TextInput.Icon
+                icon="calendar"
+                onPress={() => setIsPickDate(true)}
+              />
+            }
+          />
+          <TextInput
+            mode="outlined"
+            label="Description"
+            multiline
+            numberOfLines={8}
+            value={description}
+            defaultValue={description}
+          />
+          <Button mode="contained">Save</Button>
+        </View>
+      )}
       <DatePicker
         modal
         mode="datetime"
