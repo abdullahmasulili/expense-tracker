@@ -6,7 +6,7 @@ import DatePicker from 'react-native-date-picker';
 import styles from './styles';
 import Dropdown from '../../components/Inputs/Dropdown';
 
-const EXPENSE_CATEGORIES = [
+export const EXPENSE_CATEGORIES = [
   {
     label: 'Food',
     value: 'food',
