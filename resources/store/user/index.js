@@ -15,6 +15,7 @@ const initialState = {
       lastName: 'User',
       email: 'superuser@mail.com',
       password: 'ghandalf',
+      role: 'admin',
     },
   ],
   currentAccount: {},
