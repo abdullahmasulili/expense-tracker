@@ -5,21 +5,7 @@ import DatePicker from 'react-native-date-picker';
 
 import styles from './styles';
 import Dropdown from '../../components/Inputs/Dropdown';
-
-export const EXPENSE_CATEGORIES = [
-  {
-    label: 'Food',
-    value: 'food',
-  },
-  {
-    label: 'Household',
-    value: 'household',
-  },
-  {
-    label: 'Entertaiment',
-    value: 'entertaiment',
-  },
-];
+import { useSelector } from 'react-redux';
 
 export default function ExpenseForm({ navigation, route }) {
   const params = route.params;
@@ -29,6 +15,7 @@ export default function ExpenseForm({ navigation, route }) {
   const [isPickDate, setIsPickDate] = useState(false);
   const [description, setDescription] = useState('');
   const [expenseAmount, setExpenseAmount] = useState(0);
+  const expenseCategories = useSelector(state => state.expense.categories);
 
   if (data) {
     setSelectedCategory(data.category);
@@ -65,7 +52,7 @@ export default function ExpenseForm({ navigation, route }) {
           label="Category"
           value={selectedCategory}
           onChange={itemValue => setSelectedCategory(itemValue)}
-          items={EXPENSE_CATEGORIES}
+          items={expenseCategories}
         />
         <TextInput
           mode="outlined"
