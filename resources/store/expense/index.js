@@ -48,7 +48,7 @@ const expenseSlice = createSlice({
         state.categories.splice(itemIndex, 1, action.payload);
       }
     },
-    removeCategory(state, action) {
+    deleteCategory(state, action) {
       state.categories = state.categories.filter(
         item => item.id !== action.payload,
       );
