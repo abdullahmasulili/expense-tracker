@@ -56,6 +56,8 @@ const expenseSlice = createSlice({
   },
 });
 
+export const expenseActions = expenseSlice.actions;
+
 const expenseReducer = persistReducer(persistConfig, expenseSlice.reducer);
 
 export default expenseReducer;
