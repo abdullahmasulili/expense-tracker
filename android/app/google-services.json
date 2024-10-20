@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "205818914746",
+    "firebase_url": "https://react-exercise-1c771-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "react-exercise-1c771",
+    "storage_bucket": "react-exercise-1c771.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205818914746:android:8e16210685683755419f83",
+        "android_client_info": {
+          "package_name": "com.expensetracker"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQqRng2IUO9Gieqz95H7okBmyYX4LUJkw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
