@@ -57,6 +57,11 @@ export default function ManageCategory({ navigation }) {
     }
   }
 
+  function handleDeleteCategory() {
+    dispatch(expenseActions.deleteCategory(categoryData.id));
+    inputDialogRef.current.close();
+  }
+
   let dialogTitle = 'Add Category';
 
   if (actionType === ACTION_TYPE.EDIT) {
@@ -70,6 +75,7 @@ export default function ManageCategory({ navigation }) {
           category={categoryData}
           onClose={handleCloseDialog}
           onSave={handleSaveCategory}
+          onDelete={handleDeleteCategory}
         />
       </DialogContainer>
       <View>
