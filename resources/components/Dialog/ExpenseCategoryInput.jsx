@@ -1,8 +1,14 @@
 import { useState } from 'react';
-import { Button, Dialog, TextInput } from 'react-native-paper';
+import { Button, Dialog, MD3Colors, TextInput } from 'react-native-paper';
 import uuid from 'react-native-uuid';
+import styles from './styles';
 
-export default function ExpenseCategoryInput({ category, onClose, onSave }) {
+export default function ExpenseCategoryInput({
+  category,
+  onClose,
+  onSave,
+  onDelete,
+}) {
   const [categoryName, setCategoryName] = useState(category?.label || '');
 
   function handleSave() {
@@ -31,7 +37,23 @@ export default function ExpenseCategoryInput({ category, onClose, onSave }) {
       </Dialog.Content>
       <Dialog.Actions>
         <Button onPress={onClose}>Cancel</Button>
-        <Button onPress={handleSave}>Save</Button>
+        {category && (
+          <Button
+            mode="outlined"
+            onPress={onDelete}
+            textColor={MD3Colors.error50}
+            icon="trash-can"
+            style={styles.actionButton}>
+            Delete
+          </Button>
+        )}
+        <Button
+          mode="contained"
+          onPress={handleSave}
+          icon="content-save"
+          style={styles.actionButton}>
+          Save
+        </Button>
       </Dialog.Actions>
     </>
   );
