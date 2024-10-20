@@ -2,6 +2,7 @@ import UserLayout from '../layouts/User';
 import Login from './Auth/Login';
 import Register from './Auth/Register';
 import ExpenseForm from './Expenses/ExpenseForm';
+import ManageCategory from './User/ManageCategory';
 
 const screens = [
   {
@@ -19,6 +20,10 @@ const screens = [
   {
     name: 'ExpenseForm',
     component: ExpenseForm,
+  },
+  {
+    name: 'ManageExpenseCategory',
+    component: ManageCategory,
   },
 ];
 
