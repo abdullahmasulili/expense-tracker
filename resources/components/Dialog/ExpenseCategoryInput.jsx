@@ -1,66 +1,50 @@
-import { forwardRef, useImperativeHandle, useState } from 'react';
-import { Button, Dialog, Portal, TextInput } from 'react-native-paper';
+import { useState } from 'react';
+import { Button, Dialog, TextInput } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { expenseActions } from '../../store/expense';
 import uuid from 'react-native-uuid';
 
-const ExpenseCategoryInput = forwardRef(function ExpenseCategoryInput(
-  { title, category },
-  ref,
-) {
-  const [isVisible, setIsVisible] = useState(false);
-  const [categoryName, setCategoryName] = useState('');
+export default function ExpenseCategoryInput({ category, onClose }) {
+  const [categoryName, setCategoryName] = useState(category.label || '');
   const dispatch = useDispatch();
 
-  function handleOpenDialog() {
-    setIsVisible(true);
-  }
-
-  function handleCloseDialog() {
-    setIsVisible(false);
+  function handleOnClose() {
+    setCategoryName('');
+    onClose();
   }
 
   function handleSave() {
-    const data = {
+    let data = {
       id: uuid.v4(),
       label: categoryName,
       value: categoryName.toLowerCase(),
     };
 
+    if (category) {
+      data = {
+        id: category.id,
+        ...data,
+      };
+    }
+    console.log(data);
     dispatch(expenseActions.addCategory(data));
-    handleCloseDialog();
+    handleOnClose();
   }
-
-  useImperativeHandle(ref, () => {
-    return {
-      open() {
-        handleOpenDialog();
-      },
-      close() {
-        handleCloseDialog();
-      },
-    };
-  });
-
+  console.log(category, categoryName);
   return (
-    <Portal>
-      <Dialog visible={isVisible} onDismiss={handleCloseDialog}>
-        <Dialog.Title>{title}</Dialog.Title>
-        <Dialog.Content>
-          <TextInput
-            mode="outlined"
-            label="Name"
-            value={categoryName}
-            onChangeText={setCategoryName}
-          />
-        </Dialog.Content>
-        <Dialog.Actions>
-          <Button onPress={handleCloseDialog}>Cancel</Button>
-          <Button onPress={handleSave}>Save</Button>
-        </Dialog.Actions>
-      </Dialog>
-    </Portal>
+    <>
+      <Dialog.Content>
+        <TextInput
+          mode="outlined"
+          label="Name"
+          value={categoryName}
+          onChangeText={setCategoryName}
+        />
+      </Dialog.Content>
+      <Dialog.Actions>
+        <Button onPress={handleOnClose}>Cancel</Button>
+        <Button onPress={handleSave}>Save</Button>
+      </Dialog.Actions>
+    </>
   );
-});
-
-export default ExpenseCategoryInput;
+}
