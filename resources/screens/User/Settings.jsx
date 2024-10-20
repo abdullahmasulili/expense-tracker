@@ -33,7 +33,12 @@ export default function UserSettings({ navigation }) {
           icon="key"
         />
         <Divider />
-        <MenuButton label="Logout" onPress={handleNavigateMenu} icon="logout" />
+        <MenuButton
+          label="Logout"
+          onPress={handleNavigateMenu}
+          icon="logout"
+          to="Login"
+        />
       </View>
     </View>
   );
