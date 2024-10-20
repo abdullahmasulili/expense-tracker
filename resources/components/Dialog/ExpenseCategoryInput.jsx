@@ -5,13 +5,8 @@ import { expenseActions } from '../../store/expense';
 import uuid from 'react-native-uuid';
 
 export default function ExpenseCategoryInput({ category, onClose }) {
-  const [categoryName, setCategoryName] = useState(category.label || '');
+  const [categoryName, setCategoryName] = useState(category?.label || '');
   const dispatch = useDispatch();
-
-  function handleOnClose() {
-    setCategoryName('');
-    onClose();
-  }
 
   function handleSave() {
     let data = {
@@ -21,16 +16,13 @@ export default function ExpenseCategoryInput({ category, onClose }) {
     };
 
     if (category) {
-      data = {
-        id: category.id,
-        ...data,
-      };
+      data.id = category.id;
     }
-    console.log(data);
+
     dispatch(expenseActions.addCategory(data));
-    handleOnClose();
+    onClose();
   }
-  console.log(category, categoryName);
+
   return (
     <>
       <Dialog.Content>
@@ -42,7 +34,7 @@ export default function ExpenseCategoryInput({ category, onClose }) {
         />
       </Dialog.Content>
       <Dialog.Actions>
-        <Button onPress={handleOnClose}>Cancel</Button>
+        <Button onPress={onClose}>Cancel</Button>
         <Button onPress={handleSave}>Save</Button>
       </Dialog.Actions>
     </>

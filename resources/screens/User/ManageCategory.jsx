@@ -17,7 +17,7 @@ export default function ManageCategory({ navigation }) {
   const expenseCategories = useSelector(state => state.expense.categories);
   const inputDialogRef = useRef();
   const [dialogTitle, setDialogTitle] = useState('');
-  const [categoryData, setCategoryData] = useState({});
+  const [categoryData, setCategoryData] = useState();
 
   function handleBackAction() {
     navigation.navigate('UserSettings');
@@ -35,7 +35,7 @@ export default function ManageCategory({ navigation }) {
   }
 
   function handleCloseDialog() {
-    setCategoryData({});
+    setCategoryData();
     inputDialogRef.current.close();
   }
 
