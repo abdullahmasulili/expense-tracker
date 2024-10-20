@@ -6,18 +6,25 @@ import MenuButton from '../../components/Button/Menu';
 import styles from './styles';
 import ExpenseCategoryInput from '../../components/Dialog/ExpenseCategoryInput';
 import { useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import DialogContainer from '../../components/Dialog/Container';
+import { expenseActions } from '../../store/expense';
 
 function CategoryItem({ category, onPress }) {
   return <MenuButton label={category.label} onPress={onPress} />;
 }
 
+const ACTION_TYPE = {
+  ADD: 'add',
+  EDIT: 'edit',
+};
+
 export default function ManageCategory({ navigation }) {
   const expenseCategories = useSelector(state => state.expense.categories);
   const inputDialogRef = useRef();
-  const [dialogTitle, setDialogTitle] = useState('');
+  const [actionType, setActionType] = useState(ACTION_TYPE.ADD);
   const [categoryData, setCategoryData] = useState();
+  const dispatch = useDispatch();
 
   function handleBackAction() {
     navigation.navigate('UserSettings');
@@ -25,12 +32,12 @@ export default function ManageCategory({ navigation }) {
 
   function handleItemPress(category) {
     setCategoryData(category);
-    setDialogTitle('Edit Category');
+    setActionType(ACTION_TYPE.EDIT);
     inputDialogRef.current.open();
   }
 
   function handleAddItemPress() {
-    setDialogTitle('Add Category');
+    setActionType(ACTION_TYPE.ADD);
     inputDialogRef.current.open();
   }
 
@@ -39,12 +46,30 @@ export default function ManageCategory({ navigation }) {
     inputDialogRef.current.close();
   }
 
+  function handleSaveCategory(data) {
+    switch (actionType) {
+      case ACTION_TYPE.ADD:
+        dispatch(expenseActions.addCategory(data));
+        break;
+      case ACTION_TYPE.EDIT:
+        dispatch(expenseActions.updateCategory(data));
+        break;
+    }
+  }
+
+  let dialogTitle = 'Add Category';
+
+  if (actionType === ACTION_TYPE.EDIT) {
+    dialogTitle = 'Edit Category';
+  }
+
   return (
     <>
       <DialogContainer ref={inputDialogRef} title={dialogTitle}>
         <ExpenseCategoryInput
           category={categoryData}
           onClose={handleCloseDialog}
+          onSave={handleSaveCategory}
         />
       </DialogContainer>
       <View>

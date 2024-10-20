@@ -1,12 +1,9 @@
 import { useState } from 'react';
 import { Button, Dialog, TextInput } from 'react-native-paper';
-import { useDispatch } from 'react-redux';
-import { expenseActions } from '../../store/expense';
 import uuid from 'react-native-uuid';
 
-export default function ExpenseCategoryInput({ category, onClose }) {
+export default function ExpenseCategoryInput({ category, onClose, onSave }) {
   const [categoryName, setCategoryName] = useState(category?.label || '');
-  const dispatch = useDispatch();
 
   function handleSave() {
     let data = {
@@ -19,8 +16,7 @@ export default function ExpenseCategoryInput({ category, onClose }) {
       data.id = category.id;
     }
 
-    dispatch(expenseActions.addCategory(data));
-    onClose();
+    onSave(data);
   }
 
   return (
