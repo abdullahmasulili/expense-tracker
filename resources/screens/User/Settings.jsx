@@ -3,9 +3,9 @@ import { Avatar, Text } from 'react-native-paper';
 import styles from './styles';
 import MenuButton from '../../components/Button/Menu';
 
-export default function UserSettings() {
-  function handleOnPress() {
-    console.log('pressed');
+export default function UserSettings({ navigation }) {
+  function handleNavigateMenu(screenName) {
+    navigation.navigate(screenName);
   }
 
   return (
@@ -17,15 +17,16 @@ export default function UserSettings() {
       <View style={styles.menu}>
         <MenuButton
           label="Manage Expense Category"
-          onPress={handleOnPress}
+          onPress={handleNavigateMenu}
           icon="tune-variant"
+          to="ManageExpenseCategory"
         />
         <MenuButton
           label="Change Password"
-          onPress={handleOnPress}
+          onPress={handleNavigateMenu}
           icon="key"
         />
-        <MenuButton label="Logout" onPress={handleOnPress} icon="logout" />
+        <MenuButton label="Logout" onPress={handleNavigateMenu} icon="logout" />
       </View>
     </View>
   );
