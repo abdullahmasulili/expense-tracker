@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { Appbar, Divider, Text } from 'react-native-paper';
 import { FlatList } from 'react-native-gesture-handler';
 
 import MenuButton from '../../components/Button/Menu';
@@ -9,9 +9,18 @@ import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DialogContainer from '../../components/Dialog/Container';
 import { expenseActions } from '../../store/expense';
+import GlobalStyles from '../../utils/GlobalStyles';
 
 function CategoryItem({ category, onPress }) {
   return <MenuButton label={category.label} onPress={onPress} />;
+}
+
+function EmptyList() {
+  return (
+    <Text variant="titleMedium" style={GlobalStyles.textCenter}>
+      No categories yet
+    </Text>
+  );
 }
 
 const ACTION_TYPE = {
@@ -69,7 +78,7 @@ export default function ManageCategory({ navigation }) {
   if (actionType === ACTION_TYPE.EDIT) {
     dialogTitle = 'Edit Category';
   }
-
+  console.log(expenseCategories);
   return (
     <>
       <DialogContainer ref={inputDialogRef} title={dialogTitle}>
@@ -96,6 +105,8 @@ export default function ManageCategory({ navigation }) {
               />
             )}
             keyExtractor={item => item.id}
+            ListEmptyComponent={EmptyList}
+            ItemSeparatorComponent={<Divider />}
           />
         </View>
       </View>

@@ -10,6 +10,9 @@ const GlobalStyles = StyleSheet.create({
   twoColumItem: {
     width: '50%',
   },
+  textCenter: {
+    textAlign: 'center',
+  },
 });
 
 export default GlobalStyles;
