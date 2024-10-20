@@ -21,10 +21,10 @@ const expenseSlice = createSlice({
     setCurrentExpense(state, action) {
       state.currentExpense = action.payload;
     },
-    addExpenseItem(state, action) {
+    addItem(state, action) {
       state.items.unshift(action.payload);
     },
-    updateExpenseItem(state, action) {
+    updateItem(state, action) {
       const itemIndex = state.items.findIndex(
         item => item.id === action.payload.id,
       );
@@ -33,13 +33,13 @@ const expenseSlice = createSlice({
         state.items.splice(itemIndex, 1, action.payload);
       }
     },
-    deleteExpenseItem(state, action) {
+    deleteItem(state, action) {
       state.items = state.items.filter(item => item.id !== action.payload);
     },
-    addExpenseCategory(state, action) {
+    addCategory(state, action) {
       state.categories.push(action.payload);
     },
-    updateExpenseCategory(state, action) {
+    updateCategory(state, action) {
       const itemIndex = state.categories.findIndex(
         item => item.id === action.payload.id,
       );
@@ -48,7 +48,7 @@ const expenseSlice = createSlice({
         state.categories.splice(itemIndex, 1, action.payload);
       }
     },
-    removeExpenseCategory(state, action) {
+    removeCategory(state, action) {
       state.categories = state.categories.filter(
         item => item.id !== action.payload,
       );
