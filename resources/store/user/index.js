@@ -9,7 +9,14 @@ const persistConfig = {
 };
 
 const initialState = {
-  users: [],
+  users: [
+    {
+      firstName: 'Super',
+      lastName: 'User',
+      email: 'superuser@mail.com',
+      password: 'ghandalf',
+    },
+  ],
   currentAccount: {},
   accessToken: null,
 };
