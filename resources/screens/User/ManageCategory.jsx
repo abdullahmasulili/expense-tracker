@@ -50,16 +50,18 @@ export default function ManageCategory({ navigation }) {
     switch (actionType) {
       case ACTION_TYPE.ADD:
         dispatch(expenseActions.addCategory(data));
+        handleCloseDialog();
         break;
       case ACTION_TYPE.EDIT:
         dispatch(expenseActions.updateCategory(data));
+        handleCloseDialog();
         break;
     }
   }
 
   function handleDeleteCategory() {
     dispatch(expenseActions.deleteCategory(categoryData.id));
-    inputDialogRef.current.close();
+    handleCloseDialog();
   }
 
   let dialogTitle = 'Add Category';
