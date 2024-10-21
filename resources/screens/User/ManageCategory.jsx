@@ -13,7 +13,7 @@ import {
   newCategory,
   patchCategory,
   removeCategory,
-} from '../../store/expense/actions';
+} from '../../store/expense/categories-actions';
 
 function CategoryItem({ category, onPress }) {
   return <MenuButton label={category.label} onPress={onPress} />;
