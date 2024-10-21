@@ -46,9 +46,14 @@ export default function Login({ navigation }) {
   }
 
   useEffect(() => {
-    if (currentAccount && currentAccount.role === USER_ROLE.USER) {
+    if (currentAccount) {
+      if (currentAccount.role === USER_ROLE.USER) {
+        navigation.navigate('UserHome');
+      } else if (currentAccount.role === USER_ROLE.ADMIN) {
+        navigation.navigate('AdminHome');
+      }
+
       resetInput();
-      navigation.navigate('UserHome');
     }
   }, [currentAccount, navigation]);
 
