@@ -29,7 +29,9 @@ const userSilce = createSlice({
   initialState,
   reducers: {
     setCurrentAccount(state, action) {
-      state.account = action.payload;
+      state.currentAccount = state.users.find(
+        user => user.email === action.payload,
+      );
     },
     setAccessToken(state, action) {
       state.accessToken = action.payload;

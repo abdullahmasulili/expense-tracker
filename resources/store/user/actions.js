@@ -53,3 +53,41 @@ export const registerUser = function (userData) {
     }
   };
 };
+
+export const signInUser = creds => async dispatch => {
+  dispatch(userActions.setIsSubmitting(true));
+
+  try {
+    const response = await auth().signInWithEmailAndPassword(
+      creds.email,
+      creds.password,
+    );
+
+    dispatch(userActions.setCurrentAccount(creds.email));
+    dispatch(userActions.setIsSubmitting(false));
+
+    console.info('User signed in', response.user);
+
+    return Promise.resolve({
+      type: 'SIGNIN_SUCCESS',
+      user: response.user,
+      message: 'Signed In',
+    });
+  } catch (error) {
+    dispatch(userActions.setIsSubmitting(false));
+    dispatch(
+      userActions.setError({
+        errorCode: error.code,
+        message: 'Invalid Credential',
+      }),
+    );
+
+    console.error(error);
+
+    return Promise.reject({
+      type: 'SIGNIN_FAILURE',
+      errorCode: error.code,
+      message: error.message,
+    });
+  }
+};
