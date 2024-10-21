@@ -1,5 +1,8 @@
 import { useRef } from 'react';
 import { Card, IconButton, MD3Colors, Text } from 'react-native-paper';
+
+import { currency, formatDate } from '../../utils/Formatter';
+
 import ExpensesDetail from '../Dialog/ExpensesDetail';
 
 export default function ExpenseItem({ data, onDelete }) {
@@ -17,10 +20,12 @@ export default function ExpenseItem({ data, onDelete }) {
     <>
       <ExpensesDetail ref={dialogRef} />
       <Card mode="contained">
-        <Card.Title title={data.dateTime} />
-        <Card.Actions>
-          <Text variant="bodyMedium">{data.description}</Text>
-        </Card.Actions>
+        <Card.Title title={formatDate(data.dateTime)} />
+        <Card.Content>
+          <Text variant="bodyMedium">
+            You&apos;ve spent {currency.format(data.amount)}
+          </Text>
+        </Card.Content>
         <Card.Actions>
           <IconButton
             mode="contained"
