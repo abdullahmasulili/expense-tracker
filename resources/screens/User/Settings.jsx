@@ -9,8 +9,14 @@ import { signOutUser } from '../../store/user/actions';
 import Loading from '../../components/Dialog/Loading';
 
 export default function UserSettings({ navigation }) {
-  const { isSubmitting } = useSelector(state => state.user);
+  const { isSubmitting, currentAccount } = useSelector(state => state.user);
   const dispatch = useDispatch();
+  const fullName = [currentAccount.firstName, currentAccount.lastName].join(
+    ' ',
+  );
+  const initialName = currentAccount.firstName
+    .charAt(0)
+    .concat(currentAccount.lastName.charAt(0));
 
   function handleNavigateMenu(screenName) {
     navigation.navigate(screenName);
@@ -28,12 +34,12 @@ export default function UserSettings({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Avatar.Text style={styles.avatar} size={50} label="AM" />
+      <Avatar.Text style={styles.avatar} size={50} label={initialName} />
       <Text variant="titleLarge" style={GlobalStyles.textCenter}>
-        Abdullah Masulili
+        {fullName}
       </Text>
       <Text variant="bodyMedium" style={GlobalStyles.textCenter}>
-        abdullah.masulili@gmail.com
+        {currentAccount.email}
       </Text>
       <View style={styles.menu}>
         <MenuButton
