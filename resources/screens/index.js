@@ -1,3 +1,4 @@
+import AdminLayout from '../layouts/Admin';
 import UserLayout from '../layouts/User';
 import Login from './Auth/Login';
 import Register from './Auth/Register';
@@ -16,6 +17,10 @@ const screens = [
   {
     name: 'UserHome',
     component: UserLayout,
+  },
+  {
+    name: 'AdminHome',
+    component: AdminLayout,
   },
   {
     name: 'ExpenseForm',
