@@ -10,7 +10,7 @@ import {
 
 import styles from './styles';
 import PasswordInput from '../../components/Inputs/Password';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signInUser } from '../../store/user/actions';
 
@@ -28,23 +28,29 @@ export default function Login({ navigation }) {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
 
+  function resetInput() {
+    setEmail('');
+    setPassword('');
+  }
+
   function handleSubmit() {
     const creds = {
       email,
       password,
     };
 
-    dispatch(signInUser(creds))
-      .then(() => {
-        if (currentAccount.role === USER_ROLE.USER) {
-          navigation.navigate('UserHome');
-        }
-      })
-      .catch(errorData => {
-        console.error(errorData);
-        setShowToast(true);
-      });
+    dispatch(signInUser(creds)).catch(errorData => {
+      console.error(errorData);
+      setShowToast(true);
+    });
   }
+
+  useEffect(() => {
+    if (currentAccount && currentAccount.role === USER_ROLE.USER) {
+      resetInput();
+      navigation.navigate('UserHome');
+    }
+  }, [currentAccount, navigation]);
 
   function onCreateAccountPress() {
     navigation.navigate('Register');
