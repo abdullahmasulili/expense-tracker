@@ -1,17 +1,21 @@
 import { View } from 'react-native';
 import { Button, Text, TextInput } from 'react-native-paper';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './styles';
 import GlobalStyles from '../../utils/GlobalStyles';
 import PasswordInput from '../../components/Inputs/Password';
+import { registerUser } from '../../store/user/actions';
 
 export default function Register({ navigation }) {
+  const isSubmitting = useSelector(state => state.user.isSubmitting);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const dispatch = useDispatch();
 
   function onLoginPress() {
     navigation.navigate('Login');
@@ -26,7 +30,9 @@ export default function Register({ navigation }) {
       role: 'user',
     };
 
-    console.log(data);
+    dispatch(registerUser(data)).then(() => {
+      navigation.navigate('Login');
+    });
   }
 
   return (
@@ -60,11 +66,17 @@ export default function Register({ navigation }) {
           onChangeText={setConfirmPassword}
         />
       </View>
-      <Button mode="contained" onPress={handleOnSubmit}>
+      <Button
+        loading={isSubmitting}
+        disabled={isSubmitting}
+        mode="contained"
+        onPress={handleOnSubmit}>
         Submit
       </Button>
       <Text style={styles.label}>Already Have an Account?</Text>
-      <Button onPress={onLoginPress}>Login</Button>
+      <Button onPress={onLoginPress} disabled={isSubmitting}>
+        Login
+      </Button>
     </View>
   );
 }

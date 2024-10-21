@@ -1,9 +1,12 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import expenseReducer from './expense';
 import persistStore from 'redux-persist/es/persistStore';
+
+import expenseReducer from './expense';
+import userReducer from './user';
 
 const reducer = combineReducers({
   expense: expenseReducer,
+  user: userReducer,
 });
 
 const store = configureStore({

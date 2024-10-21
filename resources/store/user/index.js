@@ -20,6 +20,8 @@ const initialState = {
   ],
   currentAccount: {},
   accessToken: null,
+  isSubmitting: false,
+  error: null,
 };
 
 const userSilce = createSlice({
@@ -31,6 +33,12 @@ const userSilce = createSlice({
     },
     setAccessToken(state, action) {
       state.accessToken = action.payload;
+    },
+    setIsSubmitting(state, action) {
+      state.isSubmitting = action.payload;
+    },
+    setError(state, action) {
+      state.error = action.payload;
     },
     addUser(state, action) {
       state.users.push(action.payload);
