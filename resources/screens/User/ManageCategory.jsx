@@ -8,9 +8,12 @@ import ExpenseCategoryInput from '../../components/Dialog/ExpenseCategoryInput';
 import { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DialogContainer from '../../components/Dialog/Container';
-import { expenseActions } from '../../store/expense';
 import GlobalStyles from '../../utils/GlobalStyles';
-import { newCategory, patchCategory } from '../../store/expense/actions';
+import {
+  newCategory,
+  patchCategory,
+  removeCategory,
+} from '../../store/expense/actions';
 
 function CategoryItem({ category, onPress }) {
   return <MenuButton label={category.label} onPress={onPress} />;
@@ -68,8 +71,7 @@ export default function ManageCategory({ navigation }) {
   }
 
   function handleDeleteCategory() {
-    dispatch(expenseActions.deleteCategory(categoryData.id));
-    handleCloseDialog();
+    dispatch(removeCategory(categoryData.id)).then(() => handleCloseDialog());
   }
 
   let dialogTitle = 'Add Category';
@@ -77,7 +79,7 @@ export default function ManageCategory({ navigation }) {
   if (actionType === ACTION_TYPE.EDIT) {
     dialogTitle = 'Edit Category';
   }
-  console.log(expenseCategories);
+
   return (
     <>
       <DialogContainer ref={inputDialogRef} title={dialogTitle}>

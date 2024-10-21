@@ -16,3 +16,11 @@ export const getCategories = async () => {
 
   return data;
 };
+
+export const deleteCategory = async categoryId => {
+  try {
+    await database().ref(`/categories/${categoryId}`).remove();
+  } catch (err) {
+    return err;
+  }
+};

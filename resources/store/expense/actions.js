@@ -1,5 +1,5 @@
 import { expenseActions } from '.';
-import { storeCategory } from './helpers';
+import { deleteCategory, storeCategory } from './helpers';
 
 export const newCategory = categoryData => dispatch => {
   dispatch(expenseActions.setIsSubmitting(true));
@@ -55,6 +55,35 @@ export const patchCategory = categoryData => dispatch => {
     return Promise.reject({
       type: 'UPDATE_CATEGORY_FAILURE',
       message: 'Update Category Failed',
+    });
+  }
+};
+
+export const removeCategory = categoryId => dispatch => {
+  dispatch(expenseActions.setIsSubmitting(true));
+
+  try {
+    deleteCategory(categoryId);
+    dispatch(expenseActions.deleteCategory(categoryId));
+
+    console.info('Category Updated');
+
+    dispatch(expenseActions.setIsSubmitting(false));
+
+    return Promise.resolve({
+      type: 'DELETE_CATEGORY_SUCCESS',
+      message: 'Category Removed',
+    });
+  } catch (err) {
+    dispatch(expenseActions.setError(err));
+
+    console.error('Failed to remove category');
+
+    dispatch(expenseActions.setIsSubmitting(false));
+
+    return Promise.reject({
+      type: 'REMOVE_CATEGORY_FAILURE',
+      message: 'Remove Category Failed',
     });
   }
 };
