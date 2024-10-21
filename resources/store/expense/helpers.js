@@ -24,3 +24,32 @@ export const deleteCategory = async categoryId => {
     return err;
   }
 };
+
+export const storeExpense = expenseData => {
+  try {
+    database().ref(`/expenses/${expenseData.id}`).set(expenseData);
+  } catch (err) {
+    return err;
+  }
+};
+
+export const getExpenses = async () => {
+  try {
+    const data = await database()
+      .ref('/expenses')
+      .once('value')
+      .then(snapshot => snapshot);
+
+    return data;
+  } catch (err) {
+    return err;
+  }
+};
+
+export const deleteExpense = async expenseId => {
+  try {
+    await database().ref(`/expenses/${expenseId}`).remove();
+  } catch (err) {
+    return err;
+  }
+};
