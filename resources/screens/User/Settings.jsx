@@ -11,12 +11,12 @@ import Loading from '../../components/Dialog/Loading';
 export default function UserSettings({ navigation }) {
   const { isSubmitting, currentAccount } = useSelector(state => state.user);
   const dispatch = useDispatch();
-  const fullName = [currentAccount.firstName, currentAccount.lastName].join(
+  const fullName = [currentAccount?.firstName, currentAccount?.lastName].join(
     ' ',
   );
-  const initialName = currentAccount.firstName
+  const initialName = currentAccount?.firstName
     .charAt(0)
-    .concat(currentAccount.lastName.charAt(0));
+    .concat(currentAccount?.lastName.charAt(0));
 
   function handleNavigateMenu(screenName) {
     navigation.navigate(screenName);

@@ -10,12 +10,12 @@ import { signOutUser } from '../../store/user/actions';
 export default function AdminSettings({ navigation }) {
   const { currentAccount, isSubmitting } = useSelector(state => state.user);
   const dispatch = useDispatch();
-  const fullName = [currentAccount.firstName, currentAccount.lastName].join(
+  const fullName = [currentAccount?.firstName, currentAccount?.lastName].join(
     ' ',
   );
-  const initialName = currentAccount.firstName
+  const initialName = currentAccount?.firstName
     .charAt(0)
-    .concat(currentAccount.lastName.charAt(0));
+    .concat(currentAccount?.lastName.charAt(0));
 
   function handleNavigateMenu(screenName) {
     navigation.navigate(screenName);
