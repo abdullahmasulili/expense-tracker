@@ -39,7 +39,7 @@ export default function UserSettings({ navigation }) {
         {fullName}
       </Text>
       <Text variant="bodyMedium" style={GlobalStyles.textCenter}>
-        {currentAccount.email}
+        {currentAccount?.email}
       </Text>
       <View style={styles.menu}>
         <MenuButton
