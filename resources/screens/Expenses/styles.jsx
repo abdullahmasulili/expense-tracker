@@ -14,6 +14,13 @@ const styles = StyleSheet.create({
   list: {
     gap: 8,
   },
+  emptyCategoryContainer: {
+    paddingVertical: 8,
+  },
+  emptyCategoryMessage: {
+    textAlign: 'center',
+    textTransform: 'capitalize',
+  },
 });
 
 export default styles;

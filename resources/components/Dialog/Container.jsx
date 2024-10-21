@@ -2,7 +2,7 @@ import { forwardRef, useImperativeHandle, useState } from 'react';
 import { Dialog, Portal } from 'react-native-paper';
 
 const DialogContainer = forwardRef(function DialogContainer(
-  { title, children },
+  { title, children, ...props },
   ref,
 ) {
   const [isVisible, setIsVisible] = useState(false);
@@ -28,7 +28,7 @@ const DialogContainer = forwardRef(function DialogContainer(
 
   return (
     <Portal>
-      <Dialog visible={isVisible} onDismiss={handleCloseDialog}>
+      <Dialog visible={isVisible} onDismiss={handleCloseDialog} {...props}>
         <Dialog.Title>{title}</Dialog.Title>
         {children}
       </Dialog>
