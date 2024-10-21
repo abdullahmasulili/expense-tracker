@@ -18,6 +18,13 @@ const styles = StyleSheet.create({
   menuItem: {
     width: '100%',
   },
+  listContainer: {
+    padding: 15,
+    gap: 8,
+  },
+  listHeader: {
+    marginBottom: 10,
+  },
 });
 
 export default styles;

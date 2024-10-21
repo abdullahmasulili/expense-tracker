@@ -1,14 +1,26 @@
-import { View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { FlatList } from 'react-native-gesture-handler';
+import { Divider, Text } from 'react-native-paper';
+import { useSelector } from 'react-redux';
+
+import UserListItem from '../../components/List/UserListItem';
+import styles from './styles';
 
 export default function UserList() {
+  const { users } = useSelector(state => state.user);
+
   return (
-    <View>
-      <Text>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Hic ad qui
-        quibusdam enim, illum voluptate labore officia voluptates ratione
-        temporibus fugit at veniam architecto modi magnam amet ipsa earum iure!
-      </Text>
-    </View>
+    <FlatList
+      style={styles.listContainer}
+      ListHeaderComponent={
+        <Text variant="titleLarge" style={styles.listHeader}>
+          User List
+        </Text>
+      }
+      data={users}
+      renderItem={({ item }) => (
+        <UserListItem firstName={item.firstName} lastName={item.lastName} />
+      )}
+      ItemSeparatorComponent={<Divider />}
+    />
   );
 }
