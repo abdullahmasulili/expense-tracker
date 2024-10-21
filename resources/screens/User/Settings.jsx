@@ -4,10 +4,26 @@ import { Avatar, Divider, Text } from 'react-native-paper';
 import styles from './styles';
 import MenuButton from '../../components/Button/Menu';
 import GlobalStyles from '../../utils/GlobalStyles';
+import { useDispatch, useSelector } from 'react-redux';
+import { signOutUser } from '../../store/user/actions';
+import Loading from '../../components/Dialog/Loading';
 
 export default function UserSettings({ navigation }) {
+  const { isSubmitting } = useSelector(state => state.user);
+  const dispatch = useDispatch();
+
   function handleNavigateMenu(screenName) {
     navigation.navigate(screenName);
+  }
+
+  function handleUserLogout() {
+    dispatch(signOutUser())
+      .then(() => {
+        navigation.navigate('Login');
+      })
+      .catch(error => {
+        console.error(error);
+      });
   }
 
   return (
@@ -33,13 +49,9 @@ export default function UserSettings({ navigation }) {
           icon="key"
         />
         <Divider />
-        <MenuButton
-          label="Logout"
-          onPress={handleNavigateMenu}
-          icon="logout"
-          to="Login"
-        />
+        <MenuButton label="Logout" onPress={handleUserLogout} icon="logout" />
       </View>
+      <Loading title="Signing Out..." visible={isSubmitting} />
     </View>
   );
 }

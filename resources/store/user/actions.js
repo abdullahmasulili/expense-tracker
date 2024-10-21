@@ -91,3 +91,32 @@ export const signInUser = creds => async dispatch => {
     });
   }
 };
+
+export const signOutUser = () => async dispatch => {
+  dispatch(userActions.setIsSubmitting(true));
+
+  try {
+    await auth().signOut();
+
+    dispatch(userActions.setIsSubmitting(false));
+    dispatch(userActions.setCurrentAccount({}));
+    dispatch(userActions.setAccessToken(null));
+
+    console.info('User Signed Out');
+
+    return Promise.resolve({
+      type: 'SIGNOUT_SUCCESS',
+      message: 'User Signed Out',
+    });
+  } catch (error) {
+    console.error(error);
+
+    dispatch(userActions.setIsSubmitting(false));
+    dispatch(userActions.setError(error));
+
+    return Promise.reject({
+      type: 'SIGNOUT_FAILURE',
+      message: 'Something Went Wrong',
+    });
+  }
+};
