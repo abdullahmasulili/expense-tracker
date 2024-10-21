@@ -9,7 +9,7 @@ import PasswordInput from '../../components/Inputs/Password';
 import { registerUser } from '../../store/user/actions';
 
 export default function Register({ navigation }) {
-  const isSubmitting = useSelector(state => state.user.isSubmitting);
+  const { isSubmitting } = useSelector(state => state.user);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
