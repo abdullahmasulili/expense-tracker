@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button, Dialog, MD3Colors, TextInput } from 'react-native-paper';
 import uuid from 'react-native-uuid';
 import styles from './styles';
+import { useSelector } from 'react-redux';
 
 export default function ExpenseCategoryInput({
   category,
@@ -10,9 +11,11 @@ export default function ExpenseCategoryInput({
   onDelete,
 }) {
   const [categoryName, setCategoryName] = useState(category?.label || '');
+  const { currentAccount } = useSelector(state => state.user);
 
   function handleSave() {
     let data = {
+      belogsTo: currentAccount.email,
       id: uuid.v4(),
       label: categoryName,
       value: categoryName.toLowerCase(),

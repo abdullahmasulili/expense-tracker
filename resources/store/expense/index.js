@@ -12,6 +12,8 @@ const initialState = {
   items: [],
   currentExpense: {},
   categories: [],
+  isSubmitting: false,
+  error: null,
 };
 
 const expenseSlice = createSlice({
@@ -20,6 +22,12 @@ const expenseSlice = createSlice({
   reducers: {
     setCurrentExpense(state, action) {
       state.currentExpense = action.payload;
+    },
+    setIsSubmitting(state, action) {
+      state.isSubmitting = action.payload;
+    },
+    setError(state, action) {
+      state.error = action.payload;
     },
     addItem(state, action) {
       state.items.unshift(action.payload);

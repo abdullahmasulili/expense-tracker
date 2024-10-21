@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DialogContainer from '../../components/Dialog/Container';
 import { expenseActions } from '../../store/expense';
 import GlobalStyles from '../../utils/GlobalStyles';
+import { newCategory } from '../../store/expense/actions';
 
 function CategoryItem({ category, onPress }) {
   return <MenuButton label={category.label} onPress={onPress} />;
@@ -58,8 +59,7 @@ export default function ManageCategory({ navigation }) {
   function handleSaveCategory(data) {
     switch (actionType) {
       case ACTION_TYPE.ADD:
-        dispatch(expenseActions.addCategory(data));
-        handleCloseDialog();
+        dispatch(newCategory(data)).then(() => handleCloseDialog());
         break;
       case ACTION_TYPE.EDIT:
         dispatch(expenseActions.updateCategory(data));
