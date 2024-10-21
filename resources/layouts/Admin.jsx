@@ -12,9 +12,9 @@ function TabIcon(iconName, color) {
 
 export default function AdminLayout() {
   return (
-    <Tab.Navigator initialRouteName="AdminHome">
+    <Tab.Navigator initialRouteName="UserList">
       <Tab.Screen
-        name="AdminHome"
+        name="UserList"
         component={UserList}
         options={{
           tabBarLabel: 'User List',
