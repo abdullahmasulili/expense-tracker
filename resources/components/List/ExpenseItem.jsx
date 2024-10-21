@@ -1,19 +1,26 @@
 import { useRef } from 'react';
-import { Card, IconButton, MD3Colors } from 'react-native-paper';
+import { Card, IconButton, MD3Colors, Text } from 'react-native-paper';
 import ExpensesDetail from '../Dialog/ExpensesDetail';
 
-export default function ExpenseItem({ title, summary }) {
+export default function ExpenseItem({ data, onDelete }) {
   const dialogRef = useRef();
 
   function handleShowDetails() {
     dialogRef.current.open();
   }
 
+  function handleDeletePress() {
+    onDelete(data.id);
+  }
+
   return (
     <>
       <ExpensesDetail ref={dialogRef} />
       <Card mode="contained">
-        <Card.Title title={title} subtitle={summary} />
+        <Card.Title title={data.dateTime} />
+        <Card.Actions>
+          <Text variant="bodyMedium">{data.description}</Text>
+        </Card.Actions>
         <Card.Actions>
           <IconButton
             mode="contained"
@@ -21,6 +28,7 @@ export default function ExpenseItem({ title, summary }) {
             iconColor={MD3Colors.error50}
             icon="delete"
             size={20}
+            onPress={handleDeletePress}
           />
           <IconButton
             mode="contained"

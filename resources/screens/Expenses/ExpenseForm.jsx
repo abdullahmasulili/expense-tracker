@@ -2,20 +2,29 @@ import { useState } from 'react';
 import { View } from 'react-native';
 import { Appbar, Button, Text, TextInput } from 'react-native-paper';
 import DatePicker from 'react-native-date-picker';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import uuid from 'react-native-uuid';
 
 import styles from './styles';
 import Dropdown from '../../components/Inputs/Dropdown';
+import { newExpense } from '../../store/expense/expense-actions';
+import Loading from '../../components/Dialog/Loading';
 
 export default function ExpenseForm({ navigation, route }) {
+  const dispatch = useDispatch();
+  const { currentAccount } = useSelector(state => state.user);
+  const { categories: expenseCategories, isSubmitting } = useSelector(
+    state => state.expense,
+  );
+
   const params = route.params;
   const data = params.expenseData || null;
+
   const [selectedCategory, setSelectedCategory] = useState('');
   const [date, setDate] = useState(new Date());
   const [isPickDate, setIsPickDate] = useState(false);
   const [description, setDescription] = useState('');
   const [expenseAmount, setExpenseAmount] = useState(0);
-  const expenseCategories = useSelector(state => state.expense.categories);
 
   if (data) {
     setSelectedCategory(data.category);
@@ -43,6 +52,28 @@ export default function ExpenseForm({ navigation, route }) {
 
   function handleFallbackButtonPress() {
     navigation.navigate('ManageExpenseCategory');
+  }
+
+  function handleOnSubmitPress() {
+    try {
+      const expenseCategory = expenseCategories.find(
+        category => category.value === selectedCategory,
+      );
+      const expenseData = {
+        id: uuid.v4(),
+        belongsTo: currentAccount.email,
+        category: expenseCategory.label,
+        amount: expenseAmount,
+        dateTime: formattedDate,
+        description,
+      };
+
+      dispatch(newExpense(expenseData)).then(() =>
+        navigation.navigate('ExpenseList'),
+      );
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (
@@ -75,6 +106,7 @@ export default function ExpenseForm({ navigation, route }) {
             dense
             value={expenseAmount}
             defaultValue={expenseAmount}
+            onChangeText={setExpenseAmount}
             keyboardType="number-pad"
             inputMode="numeric"
             right={<TextInput.Icon icon="currency-usd" />}
@@ -102,8 +134,11 @@ export default function ExpenseForm({ navigation, route }) {
             numberOfLines={8}
             value={description}
             defaultValue={description}
+            onChangeText={setDescription}
           />
-          <Button mode="contained">Save</Button>
+          <Button mode="contained" onPress={handleOnSubmitPress}>
+            Save
+          </Button>
         </View>
       )}
       <DatePicker
@@ -116,6 +151,7 @@ export default function ExpenseForm({ navigation, route }) {
         onCancel={() => setIsPickDate(false)}
         onConfirm={handleOnDateConfirm}
       />
+      <Loading title="Submitting..." visible={isSubmitting} />
     </>
   );
 }

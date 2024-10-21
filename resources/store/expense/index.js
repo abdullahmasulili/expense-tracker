@@ -5,7 +5,7 @@ import persistReducer from 'redux-persist/es/persistReducer';
 const persistConfig = {
   key: 'expense',
   storage: AsyncStorage,
-  whitelist: ['item', 'categories'],
+  whitelist: ['items', 'categories'],
 };
 
 const initialState = {
