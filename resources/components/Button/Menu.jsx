@@ -10,7 +10,7 @@ export default function MenuButton({ label, onPress, icon, to }) {
       rippleColor={MD3Colors.neutral90}
       onPress={() => onPress(to)}>
       <View style={styles.buttonContent}>
-        <Icon source={icon} size={16} />
+        <Icon source={icon} size={24} />
         <Text variant="bodyLarge">{label}</Text>
       </View>
     </TouchableRipple>

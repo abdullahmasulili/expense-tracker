@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   },
   buttonContent: {
     flexDirection: 'row',
-    gap: 8,
+    gap: 15,
     alignItems: 'center',
   },
 });
