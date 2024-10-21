@@ -1,6 +1,7 @@
 import auth from '@react-native-firebase/auth';
 
 import { userActions } from '.';
+import { getUsers, storeData } from './helpers';
 
 export const registerUser = function (userData) {
   return async function (dispatch) {
@@ -12,9 +13,13 @@ export const registerUser = function (userData) {
         userData.password,
       );
 
-      dispatch(userActions.addUser(userData));
+      storeData(userData);
+
+      const users = await getUsers();
+
+      dispatch(userActions.setUsers(Object.values(users)));
       dispatch(userActions.setIsSubmitting(false));
-      console.log('account created');
+      console.info('account created');
 
       return Promise.resolve({
         user: credential.user,
@@ -63,6 +68,9 @@ export const signInUser = creds => async dispatch => {
       creds.password,
     );
 
+    const users = await getUsers();
+
+    dispatch(userActions.setUsers(Object.values(users)));
     dispatch(userActions.setCurrentAccount(creds.email));
     dispatch(userActions.setIsSubmitting(false));
 

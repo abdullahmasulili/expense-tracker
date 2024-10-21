@@ -9,15 +9,7 @@ const persistConfig = {
 };
 
 const initialState = {
-  users: [
-    {
-      firstName: 'Super',
-      lastName: 'User',
-      email: 'superuser@mail.com',
-      password: 'ghandalf',
-      role: 'admin',
-    },
-  ],
+  users: [],
   currentAccount: {},
   accessToken: null,
   isSubmitting: false,
@@ -28,6 +20,9 @@ const userSilce = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    setUsers(state, action) {
+      state.users = action.payload;
+    },
     setCurrentAccount(state, action) {
       state.currentAccount = state.users.find(
         user => user.email === action.payload,
