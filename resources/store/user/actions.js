@@ -138,6 +138,7 @@ export const signOutUser = () => async dispatch => {
   try {
     await auth().signOut();
 
+    await dispatch(userActions.setCurrentAccount({}));
     await dispatch(userActions.setAccessToken(null));
     dispatch(userActions.setIsSubmitting(false));
 
