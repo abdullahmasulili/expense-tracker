@@ -1,10 +1,11 @@
 import { View } from 'react-native';
 import { Button, Card, Text } from 'react-native-paper';
 import DateTimePicker from 'react-native-ui-datepicker';
-
-import styles from './styles';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+
+import styles from './styles';
+
 import TotalExpense from '../../components/Cards/TotalExpense';
 import CategoryBreakdown from '../../components/Cards/CategoryBreakdown';
 
