@@ -3,9 +3,15 @@ import { View } from 'react-native';
 import { Text } from 'react-native-paper';
 import styles from './styles';
 
-export default function Dropdown({ label, items, onChange, value }) {
+export default function Dropdown({
+  label,
+  items,
+  onChange,
+  value,
+  containerStyle,
+}) {
   return (
-    <View>
+    <View style={containerStyle}>
       <Text variant="labelMedium">{label}</Text>
       <Picker
         style={styles.input}
