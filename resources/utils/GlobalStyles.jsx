@@ -13,6 +13,9 @@ const GlobalStyles = StyleSheet.create({
   textCenter: {
     textAlign: 'center',
   },
+  verticalSpacing: {
+    marginVertical: 8,
+  },
 });
 
 export default GlobalStyles;

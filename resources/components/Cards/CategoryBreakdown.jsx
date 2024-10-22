@@ -1,9 +1,10 @@
 import { FlatList } from 'react-native-gesture-handler';
 import { Card, Text } from 'react-native-paper';
+import GlobalStyles from '../../utils/GlobalStyles';
 
 function BreakdownItem({ data }) {
   return (
-    <Text variant="titleLarge" style={{ marginVertical: 8 }}>
+    <Text variant="titleLarge" style={GlobalStyles.verticalSpacing}>
       {data.category} : {data.percentage.toFixed(2)}%
     </Text>
   );
