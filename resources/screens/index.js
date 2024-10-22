@@ -1,6 +1,7 @@
 import AdminLayout from '../layouts/Admin';
 import UserLayout from '../layouts/User';
 import UserExpenses from './Admin/UserExpenses';
+import UserExpensesDetail from './Admin/UserExpensesDetail';
 import Login from './Auth/Login';
 import Register from './Auth/Register';
 import ExpenseForm from './Expenses/ExpenseForm';
@@ -34,6 +35,10 @@ const screens = [
   {
     name: 'UserExpenses',
     component: UserExpenses,
+  },
+  {
+    name: 'UserExpensesDetail',
+    component: UserExpensesDetail,
   },
 ];
 
