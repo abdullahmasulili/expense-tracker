@@ -1,79 +1,103 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Expense Tracker App
 
-# Getting Started
+This is a React Native expense tracker app that allows users to manage their expenses and provides different components for regular users and admins.
 
-> **Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+## Table of Contents
 
-## Step 1: Start the Metro Server
+- [Getting Started](#getting-started)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Running the Project](#running-the-project)
+- [Software Architecture](#software-architecture)
+- [Design Patterns](#design-patterns)
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+---
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## Getting Started
+
+Follow the instructions below to get a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+Ensure you have the following installed on your machine:
+
+- [Node.js](https://nodejs.org/) (>= 14.x.x)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [React Native CLI](https://reactnative.dev/docs/environment-setup) or [Expo CLI](https://docs.expo.dev/)
+- [Android Studio](https://developer.android.com/studio) and/or [Xcode](https://developer.apple.com/xcode/) (for iOS development)
+
+### Installation
+
+1. Clone the repository:
 
 ```bash
-# using npm
-npm start
-
-# OR using Yarn
-yarn start
+git clone https://github.com/abdullahmasulili/expense-tracker.git
+cd expense-tracker
 ```
 
-## Step 2: Start your Application
+2. Install dependencies:
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
+If you're using npm:
 
 ```bash
-# using npm
+npm install
+```
+
+Or if you're using yarn:
+
+```bash
+yarn install
+```
+
+### Running the Project
+
+To run the app on an Android emulator or a real device:
+
+```bash
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### For iOS
+To run the app on an iOS emulator or a real device (only on macOS):
 
 ```bash
-# using npm
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## Software Architecture
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+This app follows a Component-Based Architecture to ensure reusability, scalability, and ease of maintenance. The application is divided into small, reusable components, with a clear separation of concerns between UI (view) components and logic components.
 
-## Step 3: Modifying your App
+- **Screens**: Each major view (e.g., Home, Expenses, Admin) is broken into separate screen components
+- **Layouts**: Common UI layouts like headers, footers, and navigation elements are kept in reusable layout components
+- **Inputs** and Forms: Reusable form components for adding or editing expenses.
 
-Now that you have successfully run the app, let's modify it.
+The app uses **Stack Navigator** for handling the navigation between different screens and **Bottom Tab Navigator** for organizing the layout into tabs.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+## Design Patterns
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+### Component-Based Architecture
 
-## Congratulations! :tada:
+The app breaks down the UI into reusable and independent components such as screens, layouts, and input fields. This approach enables easy management of the app's complexity, making the codebase modular and maintainable.
 
-You've successfully run and modified your React Native App. :partying_face:
+### Container-Presenter Pattern (Smart-Dumb Components)
 
-### Now what?
+This pattern helps separate the concerns of managing data and state from rendering the UI. The "smart" components (containers) handle the state and logic, while "dumb" components (presenters) are stateless and focused purely on displaying data.
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+For Example:
+
+- **Smart Components**: Manage business logic, handle state, and pass data to child components.
+- **Dumb Components**: Stateless and responsible for presenting the UI, receiving props from parent components.
+
+---
+
+## Additional Notes
+
+- This app is not optimized for iOS and also not tested
+- Make sure to have an Android or iOS emulator set up, or connect a real device to your machine.
+- The app uses mock data for development purposes. No live backend connection is required.
+- Please make sure to run both **npm install** and **yarn install** to install the package since some package are only installed using one of it
 
 # Troubleshooting
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+- If you encountered issue on related to unable to move immutable diretory, please refer this [Github Thread](https://github.com/facebook/react-native/issues/46210#issuecomment-2315210922)
