@@ -18,6 +18,8 @@ export default function ExpenseItem({ data, onDelete }) {
           <Text variant="bodyMedium">
             You&apos;ve spent {currency.format(data.amount)}
           </Text>
+          <Text variant="titleMedium">Category</Text>
+          <Text variant="bodyMedium">{data.category}</Text>
           <Text variant="titleMedium">Description</Text>
           <Text variant="bodyMedium">{data.description}</Text>
         </Card.Content>
