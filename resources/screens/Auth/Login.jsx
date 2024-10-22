@@ -7,17 +7,14 @@ import {
   Text,
   TextInput,
 } from 'react-native-paper';
-
-import styles from './styles';
-import PasswordInput from '../../components/Inputs/Password';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getExchangeRates, signInUser } from '../../store/user/actions';
 
-const USER_ROLE = {
-  ADMIN: 'admin',
-  USER: 'user',
-};
+import styles from './styles';
+import { USER_ROLE } from '../../utils/CONSTANTS';
+
+import PasswordInput from '../../components/Inputs/Password';
+import { getExchangeRates, signInUser } from '../../store/user/actions';
 
 export default function Login({ navigation }) {
   const { currentAccount, isSubmitting, error } = useSelector(
