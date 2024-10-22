@@ -20,6 +20,9 @@ const expenseSlice = createSlice({
   name: 'expense',
   initialState,
   reducers: {
+    setExpenseItems(state, action) {
+      state.items = action.payload;
+    },
     setCurrentExpense(state, action) {
       state.currentExpense = action.payload;
     },
@@ -28,6 +31,9 @@ const expenseSlice = createSlice({
     },
     setError(state, action) {
       state.error = action.payload;
+    },
+    setCategories(state, action) {
+      state.categories = action.payload;
     },
     addItem(state, action) {
       state.items.unshift(action.payload);
