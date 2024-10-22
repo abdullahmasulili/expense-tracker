@@ -9,6 +9,12 @@ const styles = StyleSheet.create({
   itemContainer: {
     marginVertical: 8,
   },
+  cardContent: {
+    gap: 8,
+  },
+  expenseCard: {
+    marginVertical: 8,
+  },
 });
 
 export default styles;
