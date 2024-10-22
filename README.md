@@ -22,6 +22,7 @@ Follow the instructions below to get a copy of the project up and running on you
 Ensure you have the following installed on your machine:
 
 - [Node.js](https://nodejs.org/) (>= 14.x.x)
+- [JDK](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) (v17)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
 - [React Native CLI](https://reactnative.dev/docs/environment-setup) or [Expo CLI](https://docs.expo.dev/)
 - [Android Studio](https://developer.android.com/studio) and/or [Xcode](https://developer.apple.com/xcode/) (for iOS development)
