@@ -1,6 +1,5 @@
 import { FlatList } from 'react-native-gesture-handler';
 import { Card, Text } from 'react-native-paper';
-import { useSelector } from 'react-redux';
 
 function BreakdownItem({ data }) {
   return (
@@ -10,8 +9,7 @@ function BreakdownItem({ data }) {
   );
 }
 
-export default function CategoryBreakdown() {
-  const { items: expenses, categories } = useSelector(state => state.expense);
+export default function CategoryBreakdown({ expenses, categories }) {
   const totalExpense = expenses.reduce(
     (total, expense) => total + Number(expense.amount),
     0,
