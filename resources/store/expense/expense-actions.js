@@ -1,7 +1,7 @@
 import { expenseActions } from '.';
 import { deleteExpense, storeExpense } from './helpers';
 
-export const newExpense = expenseData => dispatch => {
+export const newExpense = expenseData => async dispatch => {
   dispatch(expenseActions.setIsSubmitting(true));
 
   try {
@@ -24,7 +24,7 @@ export const newExpense = expenseData => dispatch => {
   }
 };
 
-export const patchExpense = expenseData => dispatch => {
+export const patchExpense = expenseData => async dispatch => {
   dispatch(expenseActions.setIsSubmitting(true));
 
   try {
@@ -47,7 +47,7 @@ export const patchExpense = expenseData => dispatch => {
   }
 };
 
-export const removeExpense = expenseId => dispatch => {
+export const removeExpense = expenseId => async dispatch => {
   dispatch(expenseActions.setIsSubmitting(true));
 
   try {
