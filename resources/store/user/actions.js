@@ -3,6 +3,9 @@ import auth from '@react-native-firebase/auth';
 import { userActions } from '.';
 import { getUsers, storeData } from './helpers';
 import { fetchExchangeRates } from '../../api/exchange';
+import { getCategories, getExpenses } from '../expense/helpers';
+import { expenseActions } from '../expense';
+import { USER_ROLE } from '../../utils/CONSTANTS';
 
 export const registerUser = function (userData) {
   return async function (dispatch) {
@@ -70,9 +73,30 @@ export const signInUser = creds => async dispatch => {
     );
 
     const users = await getUsers();
+    const user = Object.values(users).find(item => item.email === creds.email);
+    const categories = await getCategories();
+    const expenses = await getExpenses();
 
-    dispatch(userActions.setUsers(Object.values(users)));
-    dispatch(userActions.setCurrentAccount(creds.email));
+    if (user.role === USER_ROLE.USER) {
+      const userExpenses = expenses
+        ? Object.values(expenses).filter(
+            expense => expense.belongsTo === creds.email,
+          )
+        : [];
+      const userExpenseCategories = categories
+        ? Object.values(categories).filter(
+            category => category.belongsTo === creds.email,
+          )
+        : [];
+
+      await dispatch(expenseActions.setCategories(userExpenseCategories));
+      await dispatch(expenseActions.setExpenseItems(userExpenses));
+    } else if (USER_ROLE.ADMIN) {
+      await dispatch(userActions.setUsers(Object.values(users)));
+      await dispatch(expenseActions.setExpenseItems(Object.values(expenses)));
+    }
+
+    await dispatch(userActions.setCurrentAccount(user));
     dispatch(userActions.setIsSubmitting(false));
 
     console.info('User signed in', response.user);
@@ -83,13 +107,13 @@ export const signInUser = creds => async dispatch => {
       message: 'Signed In',
     });
   } catch (error) {
-    dispatch(userActions.setIsSubmitting(false));
-    dispatch(
+    await dispatch(
       userActions.setError({
         errorCode: error.code,
         message: 'Invalid Credential',
       }),
     );
+    dispatch(userActions.setIsSubmitting(false));
 
     console.error(error);
 
@@ -107,9 +131,11 @@ export const signOutUser = () => async dispatch => {
   try {
     await auth().signOut();
 
+    await dispatch(userActions.setCurrentAccount({}));
+    await dispatch(expenseActions.setCategories([]));
+    await dispatch(expenseActions.setExpenseItems([]));
+    await dispatch(userActions.setAccessToken(null));
     dispatch(userActions.setIsSubmitting(false));
-    dispatch(userActions.setCurrentAccount({}));
-    dispatch(userActions.setAccessToken(null));
 
     console.info('User Signed Out');
 
@@ -120,8 +146,8 @@ export const signOutUser = () => async dispatch => {
   } catch (error) {
     console.error(error);
 
+    await dispatch(userActions.setError(error));
     dispatch(userActions.setIsSubmitting(false));
-    dispatch(userActions.setError(error));
 
     return Promise.reject({
       type: 'SIGNOUT_FAILURE',
