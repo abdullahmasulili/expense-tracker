@@ -15,7 +15,7 @@ export default function ExpenseCategoryInput({
 
   function handleSave() {
     let data = {
-      belogsTo: currentAccount.email,
+      belongsTo: currentAccount.email,
       id: uuid.v4(),
       label: categoryName,
       value: categoryName.toLowerCase(),
