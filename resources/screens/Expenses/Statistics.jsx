@@ -10,7 +10,7 @@ import TotalExpense from '../../components/Cards/TotalExpense';
 import CategoryBreakdown from '../../components/Cards/CategoryBreakdown';
 
 export default function ExpenseList() {
-  const { items: expenses } = useSelector(state => state.expense);
+  const { items: expenses, categories } = useSelector(state => state.expense);
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState(new Date());
   const [totalExpense, setTotalExpense] = useState(0);
@@ -64,7 +64,7 @@ export default function ExpenseList() {
         </Card.Actions>
       </Card>
       <TotalExpense amount={totalExpense} />
-      <CategoryBreakdown />
+      <CategoryBreakdown expenses={expenses} categories={categories} />
     </View>
   );
 }
