@@ -21,6 +21,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     textTransform: 'capitalize',
   },
+  formContainer: {
+    padding: 8,
+  },
+  formSpacing: {
+    marginTop: 8,
+  },
 });
 
 export default styles;
