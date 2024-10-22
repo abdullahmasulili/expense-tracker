@@ -67,12 +67,13 @@ export default function ExpenseForm({ navigation, route }) {
       const expenseCategory = expenseCategories.find(
         category => category.value === values.category,
       );
+
       const expenseData = {
         id: uuid.v4(),
         belongsTo: currentAccount.email,
         category: expenseCategory.label,
         amount: values.amount,
-        dateTime: values.dateTime.toISOString(),
+        dateTime: pickerDate.toISOString(),
         description: values.description,
       };
 
@@ -150,7 +151,7 @@ export default function ExpenseForm({ navigation, route }) {
                 label="Date Time"
                 dense
                 value={formatDate(pickerDate)}
-                onChange={handleChange('dateTime')}
+                onChangeText={handleChange('dateTime')}
                 onBlur={handleBlur('dateTime')}
                 keyboardType="number-pad"
                 inputMode="numeric"
