@@ -118,10 +118,17 @@ export default function ExpenseList({ navigation }) {
           </Text>
         }
       />
-      <DialogContainer ref={dateDialogRef} title="Select Date">
+      <DialogContainer
+        ref={dateDialogRef}
+        title="Select Date"
+        dismissable={false}>
         <Dialog.Content>
           <DateTimePicker
             dayContainerStyle={{ borderRadius: 10 }}
+            calendarTextStyle={{ color: MD3Colors.primary40 }}
+            headerTextStyle={{ color: MD3Colors.primary40 }}
+            weekDaysTextStyle={{ color: MD3Colors.primary40 }}
+            selectedItemColor={MD3Colors.primary20}
             initialView="day"
             date={date}
             maxDate={new Date()}

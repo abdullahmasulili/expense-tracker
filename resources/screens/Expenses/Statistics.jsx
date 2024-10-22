@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { Button, Card, Text } from 'react-native-paper';
+import { Button, Card, MD3Colors, Text } from 'react-native-paper';
 import DateTimePicker from 'react-native-ui-datepicker';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -47,6 +47,11 @@ export default function ExpenseList() {
         <Card.Content>
           <DateTimePicker
             mode="range"
+            calendarTextStyle={{ color: MD3Colors.primary40 }}
+            headerTextStyle={{ color: MD3Colors.primary40 }}
+            weekDaysTextStyle={{ color: MD3Colors.primary40 }}
+            selectedItemColor={MD3Colors.primary20}
+            selectedRangeBackgroundColor={MD3Colors.primary90}
             maxDate={new Date()}
             startDate={start}
             endDate={end}
