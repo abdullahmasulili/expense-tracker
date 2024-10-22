@@ -14,23 +14,19 @@ export default function ExpenseList() {
   const [totalExpense, setTotalExpense] = useState(0);
 
   function handleDateChange({ startDate, endDate }) {
+    console.log(startDate, endDate);
     setStart(startDate);
     setEnd(endDate);
   }
 
-  function handleResetDate() {
-    setStart(new Date());
-    setEnd(new Date());
-  }
-
   function resolveTotalExpense() {
-    start.setHours(0, 0, 0, 0);
-    end.setHours(23, 59, 59, 999);
+    const startDate = new Date(start).setHours(0, 0, 0, 0);
+    const endDate = new Date(end).setHours(23, 59, 59, 999);
 
     const filteredExpenses = expenses.filter(expense => {
       const expenseDate = new Date(expense.dateTime);
-      console.log(expense);
-      return expenseDate >= start;
+
+      return expenseDate >= startDate && expenseDate <= endDate;
     });
 
     const expenseAmount = filteredExpenses.reduce(
@@ -46,6 +42,7 @@ export default function ExpenseList() {
   return (
     <View style={styles.container}>
       <Card>
+        <Card.Title title={<Text variant="titleLarge">Select Dates</Text>} />
         <Card.Content>
           <DateTimePicker
             mode="range"
@@ -56,11 +53,12 @@ export default function ExpenseList() {
           />
         </Card.Content>
         <Card.Actions>
-          <Button mode="outlined" icon="reload" onPress={handleResetDate}>
-            Reset
-          </Button>
-          <Button icon="filter" mode="contained" onPress={resolveTotalExpense}>
-            Filter
+          <Button
+            icon="calculator-variant"
+            mode="contained"
+            onPress={resolveTotalExpense}
+            disabled={!start || !end}>
+            Confirm
           </Button>
         </Card.Actions>
       </Card>
