@@ -1,24 +1,34 @@
 import { View } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { Appbar, Divider, MD3Colors, Text } from 'react-native-paper';
+import {
+  Appbar,
+  Button,
+  Dialog,
+  Divider,
+  MD3Colors,
+  Text,
+} from 'react-native-paper';
+import DateTimePicker from 'react-native-ui-datepicker';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import styles from './styles';
+import GlobalStyles from '../../utils/GlobalStyles';
+import { removeExpense } from '../../store/expense/expense-actions';
 
 import ExpenseItem from '../../components/List/ExpenseItem';
-import styles from './styles';
-import DatePicker from 'react-native-date-picker';
-import { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { removeExpense } from '../../store/expense/expense-actions';
 import Loading from '../../components/Dialog/Loading';
-import GlobalStyles from '../../utils/GlobalStyles';
+import DialogContainer from '../../components/Dialog/Container';
 
 export default function ExpenseList({ navigation }) {
   const dispatch = useDispatch();
+  const dateDialogRef = useRef();
 
   const { items: expenses, isSubmitting } = useSelector(state => state.expense);
 
   const [date, setDate] = useState(new Date());
-  const [isPickDate, setIsPickDate] = useState(false);
   const [filteredExpenses, setFilteredExpenses] = useState(expenses);
+  const [isFiltering, setIsFiltering] = useState(false);
 
   const formattedDate = date.toLocaleDateString('en-US', {
     month: 'short',
@@ -28,22 +38,25 @@ export default function ExpenseList({ navigation }) {
 
   const resolveExpenseByDate = useCallback(
     function resolveExpenseByDate() {
+      setIsFiltering(true);
       return expenses.filter(expense => {
         const startTime = new Date(date).setHours(0, 0, 0, 0);
         const endTime = new Date(date).setHours(23, 59, 59, 599);
 
         const expenseDateTime = new Date(expense.dateTime);
-
+        setIsFiltering(false);
         return expenseDateTime >= startTime && expenseDateTime <= endTime;
       });
     },
     [date, expenses],
   );
 
-  function handleOnDateConfirm(selectedDate) {
-    console.log(selectedDate.toString());
-    setDate(selectedDate);
-    setIsPickDate(false);
+  function handleStartPickDate() {
+    dateDialogRef.current.open();
+  }
+
+  function handleOnDateConfirm() {
+    dateDialogRef.current.close();
   }
 
   function headerContent() {
@@ -76,7 +89,7 @@ export default function ExpenseList({ navigation }) {
         <Appbar.Action
           icon="calendar"
           iconColor={MD3Colors.primary40}
-          onPress={() => setIsPickDate(true)}
+          onPress={handleStartPickDate}
         />
         <Appbar.Action
           icon="plus"
@@ -93,22 +106,26 @@ export default function ExpenseList({ navigation }) {
         keyExtractor={item => item.id}
         ItemSeparatorComponent={<Divider />}
         ListEmptyComponent={
-          <Text variant="headlineMedium" style={GlobalStyles.textCenter}>
-            No Expense Today!
+          <Text variant="titleMedium" style={GlobalStyles.textCenter}>
+            You were saving this day!
           </Text>
         }
       />
-      <DatePicker
-        modal
-        mode="date"
-        theme="light"
-        maximumDate={new Date()}
-        open={isPickDate}
-        date={date}
-        onCancel={() => setIsPickDate(false)}
-        onConfirm={handleOnDateConfirm}
-      />
-      <Loading visible={isSubmitting} title="Deleting Item..." />
+      <DialogContainer ref={dateDialogRef} title="Select Date">
+        <Dialog.Content>
+          <DateTimePicker
+            dayContainerStyle={{ borderRadius: 10 }}
+            initialView="day"
+            date={date}
+            maxDate={new Date()}
+            onChange={({ date: pickerDate }) => setDate(new Date(pickerDate))}
+          />
+        </Dialog.Content>
+        <Dialog.Actions>
+          <Button onPress={handleOnDateConfirm}>Confirm</Button>
+        </Dialog.Actions>
+      </DialogContainer>
+      <Loading visible={isFiltering || isSubmitting} title="Loading..." />
     </>
   );
 }
