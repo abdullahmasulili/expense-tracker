@@ -3709,6 +3709,7 @@ __metadata:
     react-native-paper: ^5.12.5
     react-native-safe-area-context: ^4.11.0
     react-native-screens: ^3.34.0
+    react-native-ui-datepicker: ^2.0.4
     react-native-uuid: ^2.0.2
     react-native-vector-icons: ^10.2.0
     react-redux: ^9.1.2
@@ -4807,7 +4808,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dayjs@npm:^1.8.15":
+"dayjs@npm:^1.11.13, dayjs@npm:^1.8.15":
   version: 1.11.13
   resolution: "dayjs@npm:1.11.13"
   checksum: f388db88a6aa93956c1f6121644e783391c7b738b73dbc54485578736565c8931bdfba4bb94e9b1535c6e509c97d5deb918bbe1ae6b34358d994de735055cca9
@@ -9050,6 +9051,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-ui-datepicker@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "react-native-ui-datepicker@npm:2.0.4"
+  dependencies:
+    dayjs: ^1.11.13
+    lodash: ^4.17.21
+    react-native-wheely: ^0.6.0
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 2f8dd506466ed65a2493d9a26a5d515e745e96afa0e81a106af338464393e899d746c426b2953654efb1c2132cd4d73e9f068ed3eaa4339d4c74a0e63ed9550a
+  languageName: node
+  linkType: hard
+
 "react-native-uuid@npm:^2.0.2":
   version: 2.0.2
   resolution: "react-native-uuid@npm:2.0.2"
@@ -9069,6 +9084,13 @@ __metadata:
     fa6-upgrade: bin/fa6-upgrade.sh
     generate-icon: bin/generate-icon.js
   checksum: fda930df4e63f12533268f5b339ebe4c77c691eae43503328466b3087ed868a06a4593fd246e75ac6b5ec955543eec35608c7922191bdcc3b3a94ed7f3575ef0
+  languageName: node
+  linkType: hard
+
+"react-native-wheely@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "react-native-wheely@npm:0.6.0"
+  checksum: 3223c0056160f02696e0d980198b6b3ada6b401c7fba17882253e5700c4066c5c2b9834213317e6c190a1e991acfec7c5526ee08ca89d5eed133c247386cd180
   languageName: node
   linkType: hard
 
