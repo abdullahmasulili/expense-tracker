@@ -4,9 +4,14 @@ import { useSelector } from 'react-redux';
 
 import UserListItem from '../../components/List/UserListItem';
 import styles from './styles';
+import { USER_ROLE } from '../../utils/CONSTANTS';
 
-export default function UserList() {
+export default function UserList({ navigation }) {
   const { users } = useSelector(state => state.user);
+
+  function handleUserListItemPress(userEmail) {
+    navigation.navigate('UserExpenses', { userEmail });
+  }
 
   return (
     <FlatList
@@ -16,9 +21,13 @@ export default function UserList() {
           User List
         </Text>
       }
-      data={users}
+      data={users.filter(user => user.role !== USER_ROLE.ADMIN)}
       renderItem={({ item }) => (
-        <UserListItem firstName={item.firstName} lastName={item.lastName} />
+        <UserListItem
+          firstName={item.firstName}
+          lastName={item.lastName}
+          onPress={() => handleUserListItemPress(item.email)}
+        />
       )}
       ItemSeparatorComponent={<Divider />}
     />
