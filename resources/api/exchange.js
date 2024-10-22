@@ -10,6 +10,6 @@ export const fetchExchangeRates = async () => {
   }
 
   const resData = await response.json();
-  console.log(resData);
+
   return resData;
 };
