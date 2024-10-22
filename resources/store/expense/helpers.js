@@ -12,7 +12,7 @@ export const getCategories = async () => {
   const data = await database()
     .ref('/categories')
     .once('value')
-    .then(snapshot => snapshot);
+    .then(snapshot => snapshot.val());
 
   return data;
 };
@@ -38,7 +38,7 @@ export const getExpenses = async () => {
     const data = await database()
       .ref('/expenses')
       .once('value')
-      .then(snapshot => snapshot);
+      .then(snapshot => snapshot.val());
 
     return data;
   } catch (err) {
