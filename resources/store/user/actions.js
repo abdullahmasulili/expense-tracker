@@ -93,7 +93,9 @@ export const signInUser = creds => async dispatch => {
       await dispatch(expenseActions.setExpenseItems(userExpenses));
     } else if (USER_ROLE.ADMIN) {
       await dispatch(userActions.setUsers(Object.values(users)));
-      await dispatch(expenseActions.setExpenseItems(Object.values(expenses)));
+      await dispatch(
+        expenseActions.setExpenseItems(expenses ? Object.values(expenses) : []),
+      );
     }
 
     await dispatch(userActions.setCurrentAccount(user));
