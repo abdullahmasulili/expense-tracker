@@ -4,6 +4,7 @@ import styles from './styles';
 import { Appbar, Button } from 'react-native-paper';
 import { useSelector } from 'react-redux';
 import CategoryBreakdown from '../../components/Cards/CategoryBreakdown';
+import { FlatList } from 'react-native-gesture-handler';
 
 function TotalExpenseActions({ onPress }) {
   return (
@@ -38,23 +39,44 @@ export default function UserExpenses({ navigation, route }) {
     });
   }
 
+  const statisticCards = [
+    {
+      name: 'Total Expenses',
+      Component: TotalExpense,
+      props: {
+        amount: totalExpenses,
+        actions: <TotalExpenseActions onPress={handleDetailPress} />,
+      },
+    },
+    {
+      name: 'Category Breakdown',
+      Component: CategoryBreakdown,
+      props: {
+        categories: userCategories,
+        expenses: userExpenses,
+      },
+    },
+  ];
+
   return (
     <>
       <Appbar.Header>
         <Appbar.BackAction onPress={() => navigation.navigate('AdminHome')} />
         <Appbar.Content title={fullName} />
       </Appbar.Header>
-      <View style={[styles.listContainer, { overflow: 'scroll' }]}>
-        <TotalExpense
-          amount={totalExpenses}
-          title="Total Expenses"
-          actions={<TotalExpenseActions onPress={handleDetailPress} />}
-        />
-        <CategoryBreakdown
-          categories={userCategories}
-          expenses={userExpenses}
-        />
-      </View>
+      <FlatList
+        data={statisticCards}
+        keyExtractor={item => item.name}
+        renderItem={({ item }) => {
+          const { Component, props } = item;
+
+          return (
+            <View style={styles.listContainer}>
+              <Component {...props} />
+            </View>
+          );
+        }}
+      />
     </>
   );
 }
