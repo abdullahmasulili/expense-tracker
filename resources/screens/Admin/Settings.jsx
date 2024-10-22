@@ -13,9 +13,18 @@ export default function AdminSettings({ navigation }) {
   const fullName = [currentAccount?.firstName, currentAccount?.lastName].join(
     ' ',
   );
-  const initialName = currentAccount?.firstName
-    .charAt(0)
-    .concat(currentAccount?.lastName.charAt(0));
+  let initialName;
+
+  if (
+    Object.hasOwn(currentAccount, 'firstName') &&
+    Object.hasOwn(currentAccount, 'lastName')
+  ) {
+    initialName = currentAccount.firstName
+      .charAt(0)
+      .concat(currentAccount.lastName.charAt(0));
+  } else {
+    initialName = 'AB';
+  }
 
   function handleNavigateMenu(screenName) {
     navigation.navigate(screenName);
