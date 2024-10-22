@@ -5,8 +5,8 @@ export const newExpense = expenseData => async dispatch => {
   dispatch(expenseActions.setIsSubmitting(true));
 
   try {
-    storeExpense(expenseData);
-    dispatch(expenseActions.addItem(expenseData));
+    await storeExpense(expenseData);
+    await dispatch(expenseActions.addItem(expenseData));
     dispatch(expenseActions.setIsSubmitting(false));
 
     return Promise.resolve({
@@ -14,7 +14,7 @@ export const newExpense = expenseData => async dispatch => {
       message: 'Expense Added',
     });
   } catch (err) {
-    dispatch(expenseActions.setError(err));
+    await dispatch(expenseActions.setError(err));
     dispatch(expenseActions.setIsSubmitting(false));
 
     return Promise.reject({
@@ -28,8 +28,8 @@ export const patchExpense = expenseData => async dispatch => {
   dispatch(expenseActions.setIsSubmitting(true));
 
   try {
-    storeExpense(expenseData);
-    dispatch(expenseActions.updateItem(expenseData));
+    await storeExpense(expenseData);
+    await dispatch(expenseActions.updateItem(expenseData));
     dispatch(expenseActions.setIsSubmitting(false));
 
     return Promise.resolve({
@@ -37,7 +37,7 @@ export const patchExpense = expenseData => async dispatch => {
       message: 'Expense Updated',
     });
   } catch (err) {
-    dispatch(expenseActions.setError(err));
+    await dispatch(expenseActions.setError(err));
     dispatch(expenseActions.setIsSubmitting(false));
 
     return Promise.reject({
@@ -51,8 +51,8 @@ export const removeExpense = expenseId => async dispatch => {
   dispatch(expenseActions.setIsSubmitting(true));
 
   try {
-    deleteExpense(expenseId);
-    dispatch(expenseActions.deleteItem(expenseId));
+    await deleteExpense(expenseId);
+    await dispatch(expenseActions.deleteItem(expenseId));
     dispatch(expenseActions.setIsSubmitting(false));
 
     return Promise.resolve({
@@ -60,7 +60,7 @@ export const removeExpense = expenseId => async dispatch => {
       message: 'Expense Removed',
     });
   } catch (err) {
-    dispatch(expenseActions.setError(err));
+    await dispatch(expenseActions.setError(err));
     dispatch(expenseActions.setIsSubmitting(false));
 
     return Promise.reject({
