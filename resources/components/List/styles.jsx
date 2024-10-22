@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   expenseCard: {
-    marginVertical: 8,
+    margin: 8,
   },
 });
 
