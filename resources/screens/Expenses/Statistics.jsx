@@ -4,8 +4,9 @@ import DateTimePicker from 'react-native-ui-datepicker';
 
 import styles from './styles';
 import { useState } from 'react';
-import { currency } from '../../utils/Formatter';
 import { useSelector } from 'react-redux';
+import TotalExpense from '../../components/Cards/TotalExpense';
+import CategoryBreakdown from '../../components/Cards/CategoryBreakdown';
 
 export default function ExpenseList() {
   const { items: expenses } = useSelector(state => state.expense);
@@ -14,7 +15,6 @@ export default function ExpenseList() {
   const [totalExpense, setTotalExpense] = useState(0);
 
   function handleDateChange({ startDate, endDate }) {
-    console.log(startDate, endDate);
     setStart(startDate);
     setEnd(endDate);
   }
@@ -62,18 +62,8 @@ export default function ExpenseList() {
           </Button>
         </Card.Actions>
       </Card>
-      <Card>
-        <Card.Title
-          title={
-            <Text variant="titleMedium">
-              Your Total Expense At Selected Date
-            </Text>
-          }
-        />
-        <Card.Content>
-          <Text variant="headlineMedium">{currency.format(totalExpense)}</Text>
-        </Card.Content>
-      </Card>
+      <TotalExpense amount={totalExpense} />
+      <CategoryBreakdown />
     </View>
   );
 }
