@@ -39,14 +39,21 @@ export default function ExpenseList({ navigation }) {
   const resolveExpenseByDate = useCallback(
     function resolveExpenseByDate() {
       setIsFiltering(true);
-      return expenses.filter(expense => {
-        const startTime = new Date(date).setHours(0, 0, 0, 0);
-        const endTime = new Date(date).setHours(23, 59, 59, 599);
+      try {
+        const result = expenses.filter(expense => {
+          const startTime = new Date(date).setHours(0, 0, 0, 0);
+          const endTime = new Date(date).setHours(23, 59, 59, 599);
 
-        const expenseDateTime = new Date(expense.dateTime);
+          const expenseDateTime = new Date(expense.dateTime);
+
+          return expenseDateTime >= startTime && expenseDateTime <= endTime;
+        });
         setIsFiltering(false);
-        return expenseDateTime >= startTime && expenseDateTime <= endTime;
-      });
+        return result;
+      } catch (err) {
+        console.error(err);
+        setIsFiltering(false);
+      }
     },
     [date, expenses],
   );
