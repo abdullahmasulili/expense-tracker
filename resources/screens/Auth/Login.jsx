@@ -12,7 +12,7 @@ import styles from './styles';
 import PasswordInput from '../../components/Inputs/Password';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { signInUser } from '../../store/user/actions';
+import { getExchangeRates, signInUser } from '../../store/user/actions';
 
 const USER_ROLE = {
   ADMIN: 'admin',
@@ -56,6 +56,10 @@ export default function Login({ navigation }) {
       resetInput();
     }
   }, [currentAccount, navigation]);
+
+  useEffect(() => {
+    dispatch(getExchangeRates());
+  }, [dispatch]);
 
   function onCreateAccountPress() {
     navigation.navigate('Register');
