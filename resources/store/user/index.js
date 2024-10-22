@@ -25,9 +25,7 @@ const userSilce = createSlice({
       state.users = action.payload;
     },
     setCurrentAccount(state, action) {
-      state.currentAccount = state.users.find(
-        user => user.email === action.payload,
-      );
+      state.currentAccount = action.payload;
     },
     setAccessToken(state, action) {
       state.accessToken = action.payload;
