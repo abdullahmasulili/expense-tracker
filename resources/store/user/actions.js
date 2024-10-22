@@ -2,6 +2,7 @@ import auth from '@react-native-firebase/auth';
 
 import { userActions } from '.';
 import { getUsers, storeData } from './helpers';
+import { fetchExchangeRates } from '../../api/exchange';
 
 export const registerUser = function (userData) {
   return async function (dispatch) {
@@ -125,6 +126,26 @@ export const signOutUser = () => async dispatch => {
     return Promise.reject({
       type: 'SIGNOUT_FAILURE',
       message: 'Something Went Wrong',
+    });
+  }
+};
+
+export const getExchangeRates = () => async dispatch => {
+  try {
+    const exchangeRates = await fetchExchangeRates();
+
+    dispatch(userActions.setExchangeRates(exchangeRates));
+
+    return Promise.resolve({
+      type: 'FETCH_EXCHANGE_RATE_SUCCESS',
+      message: 'Exchanged rates fetched',
+    });
+  } catch (err) {
+    console.error(err);
+
+    return Promise.reject({
+      type: 'FETCH_EXCHANGE_RATE_FAIL',
+      message: 'Could not fetch exchange rates',
     });
   }
 };

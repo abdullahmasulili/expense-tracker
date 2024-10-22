@@ -14,6 +14,7 @@ const initialState = {
   accessToken: null,
   isSubmitting: false,
   error: null,
+  exchangeRates: {},
 };
 
 const userSilce = createSlice({
@@ -36,6 +37,9 @@ const userSilce = createSlice({
     },
     setError(state, action) {
       state.error = action.payload;
+    },
+    setExchangeRates(state, action) {
+      state.exchangeRates = action.payload;
     },
     addUser(state, action) {
       state.users.push(action.payload);
