@@ -77,17 +77,6 @@ export default function ExpenseList({ navigation }) {
           </Text>
         }
       />
-      {/* <ScrollView style={styles.container}>
-        <List.Section style={styles.list}>
-          {DUMMY_DATA.map((data, index) => (
-            <ExpenseItem
-              key={index}
-              title={data.month}
-              summary={data.expenseSummary}
-            />
-          ))}
-        </List.Section>
-      </ScrollView> */}
       <DatePicker
         modal
         mode="date"
