@@ -101,4 +101,4 @@ For Example:
 # Troubleshooting
 
 - If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-- If you encountered issue on related to unable to move immutable diretory, please refer this [Github Thread](https://github.com/facebook/react-native/issues/46210#issuecomment-2315210922)
+- If you encountered issue related to **unable to move** immutable diretory, please refer this [Github Thread](https://github.com/facebook/react-native/issues/46210#issuecomment-2315210922)
