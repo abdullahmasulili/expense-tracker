@@ -5,7 +5,7 @@ import { Appbar, Divider, MD3Colors, Text } from 'react-native-paper';
 import ExpenseItem from '../../components/List/ExpenseItem';
 import styles from './styles';
 import DatePicker from 'react-native-date-picker';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeExpense } from '../../store/expense/expense-actions';
 import Loading from '../../components/Dialog/Loading';
@@ -18,13 +18,30 @@ export default function ExpenseList({ navigation }) {
 
   const [date, setDate] = useState(new Date());
   const [isPickDate, setIsPickDate] = useState(false);
+  const [filteredExpenses, setFilteredExpenses] = useState(expenses);
+
   const formattedDate = date.toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
   });
 
+  const resolveExpenseByDate = useCallback(
+    function resolveExpenseByDate() {
+      return expenses.filter(expense => {
+        const startTime = new Date(date).setHours(0, 0, 0, 0);
+        const endTime = new Date(date).setHours(23, 59, 59, 599);
+
+        const expenseDateTime = new Date(expense.dateTime);
+
+        return expenseDateTime >= startTime && expenseDateTime <= endTime;
+      });
+    },
+    [date, expenses],
+  );
+
   function handleOnDateConfirm(selectedDate) {
+    console.log(selectedDate.toString());
     setDate(selectedDate);
     setIsPickDate(false);
   }
@@ -48,6 +65,10 @@ export default function ExpenseList({ navigation }) {
     dispatch(removeExpense(itemId));
   }
 
+  useEffect(() => {
+    setFilteredExpenses(resolveExpenseByDate());
+  }, [date, resolveExpenseByDate]);
+
   return (
     <>
       <Appbar.Header>
@@ -65,7 +86,7 @@ export default function ExpenseList({ navigation }) {
       </Appbar.Header>
       <FlatList
         style={styles.container}
-        data={expenses}
+        data={filteredExpenses}
         renderItem={({ item }) => (
           <ExpenseItem data={item} onDelete={handleDeleteItem} />
         )}
