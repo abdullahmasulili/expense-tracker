@@ -1,19 +1,47 @@
 import { View } from 'react-native';
-import { Button, Card, MD3Colors, Text } from 'react-native-paper';
-import DateTimePicker from 'react-native-ui-datepicker';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { FlatList } from 'react-native-gesture-handler';
 
 import styles from './styles';
 
 import TotalExpense from '../../components/Cards/TotalExpense';
 import CategoryBreakdown from '../../components/Cards/CategoryBreakdown';
+import SelectDate from '../../components/Cards/SelectDate';
 
 export default function ExpenseList() {
   const { items: expenses, categories } = useSelector(state => state.expense);
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState(new Date());
   const [totalExpense, setTotalExpense] = useState(0);
+
+  const statisticCards = [
+    {
+      name: 'Select Date',
+      Component: SelectDate,
+      props: {
+        onChange: handleDateChange,
+        startDate: start,
+        endDate: end,
+        onConfirm: resolveTotalExpense,
+      },
+    },
+    {
+      name: 'Total Expense',
+      Component: TotalExpense,
+      props: {
+        amount: totalExpense,
+      },
+    },
+    {
+      name: 'Expese Category Breakdown',
+      Component: CategoryBreakdown,
+      props: {
+        expenses: expenses,
+        categories: categories,
+      },
+    },
+  ];
 
   function handleDateChange({ startDate, endDate }) {
     setStart(startDate);
@@ -41,35 +69,18 @@ export default function ExpenseList() {
   }
 
   return (
-    <View style={styles.container}>
-      <Card>
-        <Card.Title title={<Text variant="titleLarge">Select Dates</Text>} />
-        <Card.Content>
-          <DateTimePicker
-            mode="range"
-            calendarTextStyle={{ color: MD3Colors.primary40 }}
-            headerTextStyle={{ color: MD3Colors.primary40 }}
-            weekDaysTextStyle={{ color: MD3Colors.primary40 }}
-            selectedItemColor={MD3Colors.primary20}
-            selectedRangeBackgroundColor={MD3Colors.primary90}
-            maxDate={new Date()}
-            startDate={start}
-            endDate={end}
-            onChange={handleDateChange}
-          />
-        </Card.Content>
-        <Card.Actions>
-          <Button
-            icon="calculator-variant"
-            mode="contained"
-            onPress={resolveTotalExpense}
-            disabled={!start || !end}>
-            Confirm
-          </Button>
-        </Card.Actions>
-      </Card>
-      <TotalExpense amount={totalExpense} />
-      <CategoryBreakdown expenses={expenses} categories={categories} />
-    </View>
+    <FlatList
+      data={statisticCards}
+      keyExtractor={item => item.name}
+      renderItem={({ item }) => {
+        const { props, Component } = item;
+
+        return (
+          <View style={styles.container}>
+            <Component {...props} />
+          </View>
+        );
+      }}
+    />
   );
 }
