@@ -4,10 +4,10 @@ import { TextInput } from 'react-native-paper';
 export default function PasswordInput({ ...props }, label = 'Password') {
   const [isSecureText, setIsSecureText] = useState(true);
 
-  let icon = 'eye';
+  let icon = 'eye-off';
 
   if (isSecureText) {
-    icon = 'eye-off';
+    icon = 'eye';
   }
 
   return (
