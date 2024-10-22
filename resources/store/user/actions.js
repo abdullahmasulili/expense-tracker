@@ -96,6 +96,11 @@ export const signInUser = creds => async dispatch => {
       await dispatch(
         expenseActions.setExpenseItems(expenses ? Object.values(expenses) : []),
       );
+      await dispatch(
+        expenseActions.setCategories(
+          categories ? Object.values(categories) : [],
+        ),
+      );
     }
 
     await dispatch(userActions.setCurrentAccount(user));
