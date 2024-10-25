@@ -14,7 +14,6 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import styles from './styles';
-import { USER_ROLE } from '../../utils/CONSTANTS';
 
 import PasswordInput from '../../components/Inputs/Password';
 import { getExchangeRates, signInUser } from '../../store/user/actions';
@@ -32,9 +31,7 @@ const signInSchema = Yup.object().shape({
 });
 
 export default function Login({ navigation }) {
-  const { currentAccount, isSubmitting, error } = useSelector(
-    state => state.user,
-  );
+  const { isSubmitting, error } = useSelector(state => state.user);
   const [showToast, setShowToast] = useState(false);
   const dispatch = useDispatch();
 
@@ -44,16 +41,6 @@ export default function Login({ navigation }) {
       setShowToast(true);
     });
   }
-
-  useEffect(() => {
-    if (currentAccount) {
-      if (currentAccount.role === USER_ROLE.USER) {
-        navigation.navigate('UserHome');
-      } else if (currentAccount.role === USER_ROLE.ADMIN) {
-        navigation.navigate('AdminHome');
-      }
-    }
-  }, [currentAccount, navigation]);
 
   useEffect(() => {
     dispatch(getExchangeRates());
