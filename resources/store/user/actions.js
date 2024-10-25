@@ -104,6 +104,9 @@ export const signInUser = creds => async dispatch => {
     }
 
     await dispatch(userActions.setCurrentAccount(user));
+    await dispatch(
+      userActions.setAccessToken(await auth().currentUser.getIdToken()),
+    );
     dispatch(userActions.setIsSubmitting(false));
 
     console.info('User signed in', response.user);
